@@ -2,6 +2,7 @@ import type { ReactNode } from 'react';
 import { Metadata } from 'next';
 import '@/index.css';
 import '@/styles/globals.css';
+import { ThemeProvider } from '@/providers/ThemeProvider';
 
 export const metadata: Metadata = {
     title: 'Chironium',
@@ -11,7 +12,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
     return (
         <html lang='fr' suppressHydrationWarning={true}>
-            <body>{children}</body>
+            <ThemeProvider>
+                <body>{children}</body>
+            </ThemeProvider>
         </html>
     );
 }

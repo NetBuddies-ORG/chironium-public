@@ -36,6 +36,7 @@ import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { useTheme } from '@/providers/ThemeProvider';
+import Link from 'next/link';
 
 export default function LandingPage() {
     const [showLogin, setShowLogin] = useState(false);
@@ -280,12 +281,11 @@ export default function LandingPage() {
                         <Button variant='ghost' size='icon' onClick={toggleTheme} className='rounded-lg'>
                             {theme === 'dark' ? <Sun className='w-4 h-4' /> : <Moon className='w-4 h-4' />}
                         </Button>
-                        <Button
-                            onClick={() => setShowLogin(true)}
-                            className='bg-[#00C2FF] hover:bg-[#00A8E6] text-white shadow-lg shadow-[#00C2FF]/20'
-                        >
-                            Connexion
-                        </Button>
+                        <Link href={'/login'} className='flex items-center gap-3'>
+                            <Button className='bg-[#00C2FF] hover:bg-[#00A8E6] text-white shadow-lg shadow-[#00C2FF]/20'>
+                                Connexion
+                            </Button>
+                        </Link>
                     </div>
                 </div>
             </header>
