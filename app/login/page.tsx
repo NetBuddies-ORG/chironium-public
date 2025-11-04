@@ -29,7 +29,6 @@ export default function LoginPage() {
     const [password, setPassword] = useState('');
     const [confirm, setConfirm] = useState('');
     const isSignin = mode === 'signin';
-    const { theme, toggleTheme } = useTheme();
 
     const toggleMode = () => setMode(isSignin ? 'signup' : 'signin');
 
@@ -48,123 +47,109 @@ export default function LoginPage() {
     };
 
     return (
-        <div className={Classes.container}>
-            <div className={Classes['glow-top-left']}></div>
-            <div className={Classes['glow-bottom-right']}></div>
-            <div className={Classes['noise-overlay']}></div>
+        <div className={Classes.mainContent}>
+            <div className={Classes.titleContainer}>
+                <h1 className={Classes.title}>{isSignin ? 'Bienvenue' : 'Rejoignez Chironium'}</h1>
+                <p className={Classes.subtitle}>
+                    {isSignin ? 'Accédez à votre espace Chironium' : 'Créez votre compte en quelques secondes'}
+                </p>
+            </div>
 
-            {/* Header */}
-            <Header />
+            <>
+                <CardContent>
+                    <form onSubmit={handleSubmit} className={Classes.formContent}>
+                        <div>
+                            {socialProviders.map((provider) => (
+                                <SocialButton
+                                    key={provider.name}
+                                    icon={provider.icon}
+                                    label={provider.label}
+                                    onClick={() => alert(`TODO Social: ${provider.name}`)}
+                                />
+                            ))}
+                        </div>
 
-            {/* Main */}
-            <main className={Classes.main}>
-                <div className={Classes.mainContent}>
-                    <div className={Classes.titleContainer}>
-                        <h1 className={Classes.title}>{isSignin ? 'Bienvenue' : 'Rejoignez Chironium'}</h1>
-                        <p className={Classes.subtitle}>
-                            {isSignin ? 'Accédez à votre espace Chironium' : 'Créez votre compte en quelques secondes'}
-                        </p>
-                    </div>
+                        {/* Separator */}
+                        <div className={Classes.separator}>ou</div>
 
-                    <>
-                        <CardContent>
-                            <form onSubmit={handleSubmit} className={Classes.formContent}>
-                                <div>
-                                    {socialProviders.map((provider) => (
-                                        <SocialButton
-                                            key={provider.name}
-                                            icon={provider.icon}
-                                            label={provider.label}
-                                            onClick={() => alert(`TODO Social: ${provider.name}`)}
-                                        />
-                                    ))}
-                                </div>
-
-                                {/* Separator */}
-                                <div className={Classes.separator}>ou</div>
-
-                                <AnimatePresence mode='wait'>
-                                    {isSignin ? (
-                                        <motion.div
-                                            key='signin'
-                                            initial={{ opacity: 0, x: 50 }}
-                                            animate={{ opacity: 1, x: 0 }}
-                                            exit={{ opacity: 0, x: -50 }}
-                                            transition={{ duration: 0.4, ease: 'easeOut' }}
-                                        >
-                                            <AuthInput
-                                                label='Email'
-                                                type='email'
-                                                value={email}
-                                                onChange={(e) => setEmail(e.target.value)}
-                                                placeholder='votre@email.com'
-                                            />
-                                            <AuthInput
-                                                label='Mot de passe'
-                                                type='password'
-                                                value={password}
-                                                onChange={(e) => setPassword(e.target.value)}
-                                                placeholder='••••••••'
-                                            />
-                                            <Button type='submit' className={Classes.submitButton}>
-                                                Se connecter <ArrowRight className={Classes.submitIcon} />
-                                            </Button>
-                                        </motion.div>
-                                    ) : (
-                                        <motion.div
-                                            key='signup'
-                                            initial={{ opacity: 0, x: -50 }}
-                                            animate={{ opacity: 1, x: 0 }}
-                                            exit={{ opacity: 0, x: 50 }}
-                                            transition={{ duration: 0.4, ease: 'easeOut' }}
-                                        >
-                                            <AuthInput
-                                                label='Email'
-                                                type='email'
-                                                value={email}
-                                                onChange={(e) => setEmail(e.target.value)}
-                                                placeholder='votre@email.com'
-                                            />
-                                            <AuthInput
-                                                label='Mot de passe'
-                                                type='password'
-                                                value={password}
-                                                onChange={(e) => setPassword(e.target.value)}
-                                                placeholder='Votre mot de passe'
-                                            />
-                                            <AuthInput
-                                                label='Confirmer le mot de passe'
-                                                type='password'
-                                                value={confirm}
-                                                onChange={(e) => setConfirm(e.target.value)}
-                                                placeholder='Confirmez le mot de passe'
-                                            />
-                                            <Button type='submit' className={Classes.submitButton}>
-                                                Créer un compte
-                                            </Button>
-                                        </motion.div>
-                                    )}
-                                </AnimatePresence>
-                            </form>
-                        </CardContent>
-
-                        <CardFooter className={Classes.cardFooter}>
-                            <Button variant='link' onClick={toggleMode}>
-                                {isSignin ? `Vous n'avez pas de compte ? ` : 'Déjà un compte ? '}
-                                <span className={Classes.footerAction}>
-                                    {isSignin ? `Inscrivez-vous` : 'Connectez-vous'}
-                                </span>
-                            </Button>
-
-                            {isSignin && (
-                                <Button variant='link-secondary'>
-                                    <a href='#'>Mot de passe oublié ?</a>
-                                </Button>
+                        <AnimatePresence mode='wait'>
+                            {isSignin ? (
+                                <motion.div
+                                    key='signin'
+                                    initial={{ opacity: 0, x: 50 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    exit={{ opacity: 0, x: -50 }}
+                                    transition={{ duration: 0.4, ease: 'easeOut' }}
+                                >
+                                    <AuthInput
+                                        label='Email'
+                                        type='email'
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                        placeholder='votre@email.com'
+                                    />
+                                    <AuthInput
+                                        label='Mot de passe'
+                                        type='password'
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                        placeholder='••••••••'
+                                    />
+                                    <Button type='submit' className={Classes.submitButton}>
+                                        Se connecter <ArrowRight className={Classes.submitIcon} />
+                                    </Button>
+                                </motion.div>
+                            ) : (
+                                <motion.div
+                                    key='signup'
+                                    initial={{ opacity: 0, x: -50 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    exit={{ opacity: 0, x: 50 }}
+                                    transition={{ duration: 0.4, ease: 'easeOut' }}
+                                >
+                                    <AuthInput
+                                        label='Email'
+                                        type='email'
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                        placeholder='votre@email.com'
+                                    />
+                                    <AuthInput
+                                        label='Mot de passe'
+                                        type='password'
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                        placeholder='Votre mot de passe'
+                                    />
+                                    <AuthInput
+                                        label='Confirmer le mot de passe'
+                                        type='password'
+                                        value={confirm}
+                                        onChange={(e) => setConfirm(e.target.value)}
+                                        placeholder='Confirmez le mot de passe'
+                                    />
+                                    <Button type='submit' className={Classes.submitButton}>
+                                        Créer un compte
+                                    </Button>
+                                </motion.div>
                             )}
-                        </CardFooter>
-                    </>
-                </div>
-            </main>
+                        </AnimatePresence>
+                    </form>
+                </CardContent>
+
+                <CardFooter className={Classes.cardFooter}>
+                    <Button variant='link' onClick={toggleMode}>
+                        {isSignin ? `Vous n'avez pas de compte ? ` : 'Déjà un compte ? '}
+                        <span className={Classes.footerAction}>{isSignin ? `Inscrivez-vous` : 'Connectez-vous'}</span>
+                    </Button>
+
+                    {isSignin && (
+                        <Button variant='link-secondary'>
+                            <a href='#'>Mot de passe oublié ?</a>
+                        </Button>
+                    )}
+                </CardFooter>
+            </>
         </div>
     );
 }
