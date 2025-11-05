@@ -74,6 +74,7 @@
 
 .socialButton:hover {
     opacity: 0.9;
+    cursor: pointer;
 }
 
 /* Form content */
@@ -176,6 +177,15 @@
     cursor: pointer;
 }
 
-.dark .noise-overlay {
-    opacity: 0.03;
+/* Error message */
+.error {
+    margin-top: 0.5rem;
+    color: #ef4444; /* red-500 */
+    font-size: 0.875rem;
+}
+
+/* Social icon size */
+.socialIcon {
+    width: 18px;
+    height: 18px;
 }

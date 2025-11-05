@@ -222,7 +222,7 @@ export default function Page() {
     return (
         <div style={{ width: '100%', height: '100%' }}>
             {/* Hero Section */}
-            <section className='pt-32 pb-24 px-6 relative overflow-hidden'>
+            <section className='pb-24 px-6 relative overflow-hidden'>
                 {/* Gradient blobs */}
                 <div className='absolute top-0 left-1/4 w-96 h-96 bg-[#00C2FF]/10 dark:bg-[#00C2FF]/5 rounded-full blur-3xl'></div>
                 <div className='absolute bottom-0 right-1/4 w-96 h-96 bg-[#FF9500]/10 dark:bg-[#FF9500]/5 rounded-full blur-3xl'></div>

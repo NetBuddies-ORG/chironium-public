@@ -3,8 +3,8 @@ import { Metadata } from 'next';
 import '@/index.css';
 import '@/styles/globals.css';
 import { ThemeProvider } from '@/providers/ThemeProvider';
+import { AuthProvider } from '@/providers/AuthProvider';
 import Header from '@/components/common/header/Header';
-import Classes from './index.module.css';
 
 export const metadata: Metadata = {
     title: 'Chironium',
@@ -15,18 +15,20 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     return (
         <html lang='fr' suppressHydrationWarning={true}>
             <ThemeProvider>
-                <body className={Classes.container}>
-                    {/* Background & noise */}
-                    <div className={Classes['glow-top-left']}></div>
-                    <div className={Classes['glow-bottom-right']}></div>
-                    <div className={Classes['noise-overlay']}></div>
+                <AuthProvider>
+                    <body>
+                        {/* Background & noise */}
+                        <div className={'glow-top-left'}></div>
+                        <div className={'glow-bottom-right'}></div>
+                        <div className={'noise-overlay'}></div>
 
-                    {/* Header global */}
-                    <Header />
+                        {/* Header global */}
+                        <Header />
 
-                    {/* Main content */}
-                    <main className={Classes.main}>{children}</main>
-                </body>
+                        {/* Main content */}
+                        <main className={'main'}>{children}</main>
+                    </body>
+                </AuthProvider>
             </ThemeProvider>
         </html>
     );
