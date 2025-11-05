@@ -235,18 +235,16 @@ export default function Page() {
                         >
                             <Sparkles className='w-3.5 h-3.5 mr-2 text-[#00C2FF]' />
                             <span className='text-gray-700 dark:text-gray-300'>
-                                Suite professionnelle pour l'acoustique des chiroptères
+                                {"Suite professionnelle pour l'acoustique des chiroptères"}
                             </span>
                         </Badge>
 
                         <h1 className='text-6xl lg:text-7xl mb-6 text-gray-900 dark:text-white leading-[1.1] tracking-tight'>
-                            Analyse d'ultrasons de chiroptères
+                            {"Analyse d'ultrasons de chiroptères"}
                         </h1>
 
                         <p className='text-xl text-gray-600 dark:text-gray-400 mb-10 leading-relaxed max-w-3xl mx-auto'>
-                            Suite d'outils professionnels pour les naturalistes et écologues. Analysez, partagez et
-                            collaborez autour de vos données acoustiques avec une interface moderne inspirée des
-                            meilleurs outils du marché.
+                            {"Suite d'outils professionnels pour les naturalistes et écologues. Analysez, partagez et collaborez autour de vos données acoustiques avec une interface moderne inspirée des meilleurs outils du marché."}
                         </p>
 
                         <div className='flex flex-wrap gap-4 justify-center mb-12'>
@@ -329,7 +327,7 @@ export default function Page() {
                     <div className='text-center mb-16'>
                         <h2 className='text-5xl mb-4 text-gray-900 dark:text-white'>Deux produits complémentaires</h2>
                         <p className='text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto'>
-                            De l'analyse individuelle au partage collaboratif de données
+                            {"De l'analyse individuelle au partage collaboratif de données"}
                         </p>
                     </div>
                     <div className='grid md:grid-cols-2 gap-8 max-w-5xl mx-auto'>
@@ -426,7 +424,7 @@ export default function Page() {
                             Workflow
                         </Badge>
                         <h2 className='text-5xl mb-4 text-gray-900 dark:text-white'>
-                            De l'import à l'export en 4 étapes
+                            {"De l'import à l'export en 4 étapes"}
                         </h2>
                         <p className='text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto'>
                             Un processus optimisé pour maximiser votre efficacité
@@ -485,7 +483,7 @@ export default function Page() {
                                         ))}
                                     </div>
                                     <p className='text-card-foreground leading-relaxed italic'>
-                                        "{testimonial.content}"
+                                        {`"${testimonial.content}"`}
                                     </p>
                                 </CardHeader>
                                 <CardFooter>
@@ -726,8 +724,7 @@ export default function Page() {
                 <div className='container mx-auto max-w-4xl text-center relative'>
                     <h2 className='text-5xl mb-6 text-white'>Prêt à révolutionner vos analyses ?</h2>
                     <p className='text-xl text-cyan-100 mb-10 max-w-2xl mx-auto'>
-                        Rejoignez les centaines de naturalistes et écologues qui font confiance à Chironium pour leurs
-                        études acoustiques
+                        Rejoignez les centaines de naturalistes et écologues qui font confiance à Chironium pour leurs études acoustiques
                     </p>
                     <div className='flex flex-wrap gap-4 justify-center'>
                         <Button
@@ -760,8 +757,7 @@ export default function Page() {
                                 <span className='text-xl text-gray-900 dark:text-white'>Chironium</span>
                             </div>
                             <p className='text-gray-600 dark:text-gray-400 mb-6 leading-relaxed'>
-                                Suite professionnelle de référence pour l'acoustique des chiroptères. Développée par des
-                                écologues, pour des écologues.
+                                {"Suite professionnelle de référence pour l'acoustique des chiroptères. Développée par des écologues, pour des écologues."}"
                             </p>
                             <div className='flex gap-3'>
                                 <a
