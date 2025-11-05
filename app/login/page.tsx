@@ -12,20 +12,29 @@ import Classes from './index.module.css';
 
 // Inline brand icons
 const Google = (props: SVGProps<SVGSVGElement>) => (
-    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" {...props}>
-        <path fill="#EA4335" d="M12 10.2v3.92h5.46c-.24 1.25-.98 2.31-2.08 3.02l3.36 2.61c1.96-1.81 3.09-4.48 3.09-7.65 0-.74-.07-1.45-.2-2.12H12z"/>
-        <path fill="#34A853" d="M6.65 14.32a5.85 5.85 0 0 1 0-4.64L3.16 6.84a9.93 9.93 0 0 0 0 10.32l3.49-2.84z"/>
-        <path fill="#4285F4" d="M12 4.8c1.62 0 3.08.56 4.23 1.66l3.16-3.16A10.43 10.43 0 0 0 12 1C7.74 1 4.1 3.44 2.32 6.84l3.49 2.84C6.76 7.45 9.15 4.8 12 4.8z"/>
-        <path fill="#FBBC05" d="M12 22c2.75 0 5.06-.9 6.77-2.44l-3.36-2.61c-.93.63-2.12 1-3.41 1-2.85 0-5.24-2.65-6.19-4.88L2.32 17.16C4.1 20.56 7.74 22 12 22z"/>
+    <svg viewBox='0 0 24 24' aria-hidden='true' focusable='false' {...props}>
+        <path
+            fill='#EA4335'
+            d='M12 10.2v3.92h5.46c-.24 1.25-.98 2.31-2.08 3.02l3.36 2.61c1.96-1.81 3.09-4.48 3.09-7.65 0-.74-.07-1.45-.2-2.12H12z'
+        />
+        <path fill='#34A853' d='M6.65 14.32a5.85 5.85 0 0 1 0-4.64L3.16 6.84a9.93 9.93 0 0 0 0 10.32l3.49-2.84z' />
+        <path
+            fill='#4285F4'
+            d='M12 4.8c1.62 0 3.08.56 4.23 1.66l3.16-3.16A10.43 10.43 0 0 0 12 1C7.74 1 4.1 3.44 2.32 6.84l3.49 2.84C6.76 7.45 9.15 4.8 12 4.8z'
+        />
+        <path
+            fill='#FBBC05'
+            d='M12 22c2.75 0 5.06-.9 6.77-2.44l-3.36-2.61c-.93.63-2.12 1-3.41 1-2.85 0-5.24-2.65-6.19-4.88L2.32 17.16C4.1 20.56 7.74 22 12 22z'
+        />
     </svg>
 );
 
 const Microsoft = (props: React.SVGProps<SVGSVGElement>) => (
-    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" {...props}>
-        <rect x="2" y="2" width="9" height="9" fill="#F25022"/>
-        <rect x="13" y="2" width="9" height="9" fill="#7FBA00"/>
-        <rect x="2" y="13" width="9" height="9" fill="#00A4EF"/>
-        <rect x="13" y="13" width="9" height="9" fill="#FFB900"/>
+    <svg viewBox='0 0 24 24' aria-hidden='true' focusable='false' {...props}>
+        <rect x='2' y='2' width='9' height='9' fill='#F25022' />
+        <rect x='13' y='2' width='9' height='9' fill='#7FBA00' />
+        <rect x='2' y='13' width='9' height='9' fill='#00A4EF' />
+        <rect x='13' y='13' width='9' height='9' fill='#FFB900' />
     </svg>
 );
 
@@ -63,10 +72,7 @@ export default function LoginPage() {
 
     const toggleMode = () => setMode(isSignin ? 'signup' : 'signin');
 
-    const socialProviders = [
-        { name: 'google', icon: Google, label: 'Continuer avec Google' },
-        { name: 'azure', icon: Microsoft, label: 'Continuer avec Microsoft' },
-    ];
+    const socialProviders = [{ name: 'google', icon: Google, label: 'Continuer avec Google' }];
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
