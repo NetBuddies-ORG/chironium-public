@@ -18,54 +18,28 @@ export function useTheme() {
     return context;
 }
 
-function getInitialTheme(): Theme {
-    // Check localStorage first
-    try {
+export function ThemeProvider({ children }: { children: ReactNode }) {
+    const [theme, setTheme] = useState<Theme>('light'); // default value (safe for SSR)
+
+    // Load initial theme on client
+    useEffect(() => {
         const saved = localStorage.getItem('chironium-theme');
         if (saved === 'light' || saved === 'dark') {
-            return saved as Theme;
+            setTheme(saved);
+            return;
         }
-    } catch (e) {
-        // Ignore on SSR or restricted environments
-        // console.error('Failed to load theme from localStorage:', e);
-        return 'light';
-    }
-
-    if (typeof window !== 'undefined' && window.matchMedia) {
         if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            return 'dark';
+            setTheme('dark');
         }
-    }
-
-    return 'light';
-}
-
-export function ThemeProvider({ children }: { children: ReactNode }) {
-    const [theme, setTheme] = useState<Theme>(() => {
-        const initial = getInitialTheme();
-        // Apply immediately to prevent flash
-        if (typeof document !== 'undefined') {
-            const root = document.documentElement;
-            root.classList.remove('light', 'dark');
-            root.classList.add(initial);
-            root.setAttribute('data-theme', initial);
-        }
-        return initial;
-    });
+    }, []);
 
     useEffect(() => {
-        // Apply theme to document
         const root = document.documentElement;
         root.classList.remove('light', 'dark');
         root.classList.add(theme);
         root.setAttribute('data-theme', theme);
 
-        // Save to localStorage
-        try {
-            localStorage.setItem('chironium-theme', theme);
-        } catch (e) {
-            // Ignore storage errors silently
-        }
+        localStorage.setItem('chironium-theme', theme);
     }, [theme]);
 
     const toggleTheme = () => {
