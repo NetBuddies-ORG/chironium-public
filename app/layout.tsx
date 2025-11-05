@@ -5,6 +5,7 @@ import '@/styles/globals.css';
 import { ThemeProvider } from '@/providers/ThemeProvider';
 import { AuthProvider } from '@/providers/AuthProvider';
 import Header from '@/components/common/header/Header';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 export const metadata: Metadata = {
     title: 'Chironium',
@@ -14,6 +15,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
     return (
         <html lang='fr' suppressHydrationWarning={true}>
+            <SpeedInsights />
             <ThemeProvider>
                 <AuthProvider>
                     <body>
