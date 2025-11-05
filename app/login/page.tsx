@@ -45,8 +45,8 @@ const AuthInput = ({ label, type, value, onChange, placeholder }) => (
     </div>
 );
 
-const SocialButton = ({ icon: Icon, label, onClick }) => (
-    <Button variant='outline' size='default' className={Classes.socialButton} onClick={onClick}>
+const SocialButton = ({ icon: Icon, label, onClick, disabled }: { icon: any; label: string; onClick: () => void; disabled?: boolean }) => (
+    <Button type='button' variant='outline' size='default' className={Classes.socialButton} onClick={onClick} disabled={disabled}>
         <Icon className={Classes.socialIcon} /> {label}
     </Button>
 );
@@ -114,10 +114,15 @@ export default function LoginPage() {
                                     key={provider.name}
                                     icon={provider.icon}
                                     label={provider.label}
+                                    disabled={submitting}
                                     onClick={async () => {
                                         setError(null);
-                                        const { error } = await signInWithOAuth(provider.name as 'google' | 'azure');
-                                        if (error) setError(error);
+                                        setSubmitting(true);
+                                        try {
+                                            await signInWithOAuth(provider.name as 'google' | 'azure');
+                                        } finally {
+                                            setSubmitting(false);
+                                        }
                                     }}
                                 />
                             ))}
