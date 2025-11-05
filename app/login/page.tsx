@@ -1,23 +1,20 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Waves, ArrowRight, FacebookIcon, Sun, Moon } from 'lucide-react';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Waves, ArrowRight, FacebookIcon } from 'lucide-react';
+import { CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { useTheme } from '@/providers/ThemeProvider';
 import Classes from './index.module.css';
-import Header from '@/components/common/header/Header';
 
-const AuthInput = ({ label, type, value, onChange, placeholder }: any) => (
+const AuthInput = ({ label, type, value, onChange, placeholder }) => (
     <div className={Classes.inputGroup}>
         <label className={Classes.inputLabel}>{label}</label>
         <input className={Classes.input} type={type} value={value} onChange={onChange} placeholder={placeholder} />
     </div>
 );
 
-const SocialButton = ({ icon: Icon, label, onClick }: any) => (
+const SocialButton = ({ icon: Icon, label, onClick }) => (
     <Button variant='outline' size='default' className={Classes.socialButton} onClick={onClick}>
         <Icon className={Classes.socialIcon} /> {label}
     </Button>

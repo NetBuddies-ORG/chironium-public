@@ -304,18 +304,18 @@ export default function LandingPage() {
                         >
                             <Sparkles className='w-3.5 h-3.5 mr-2 text-[#00C2FF]' />
                             <span className='text-gray-700 dark:text-gray-300'>
-                                Suite professionnelle pour l'acoustique des chiroptères
+                                {"Suite professionnelle pour l'acoustique des chiroptères"}
                             </span>
                         </Badge>
 
                         <h1 className='text-6xl lg:text-7xl mb-6 text-gray-900 dark:text-white leading-[1.1] tracking-tight'>
-                            Analyse d'ultrasons de chiroptères
+                            {"Analyse d'ultrasons de chiroptères"}
                         </h1>
 
                         <p className='text-xl text-gray-600 dark:text-gray-400 mb-10 leading-relaxed max-w-3xl mx-auto'>
-                            Suite d'outils professionnels pour les naturalistes et écologues. Analysez, partagez et
-                            collaborez autour de vos données acoustiques avec une interface moderne inspirée des
-                            meilleurs outils du marché.
+                            {
+                                "Suite d'outils professionnels pour les naturalistes et écologues. Analysez, partagez et collaborez autour de vos données acoustiques avec une interface moderne inspirée des meilleurs outils du marché."
+                            }
                         </p>
 
                         <div className='flex flex-wrap gap-4 justify-center mb-12'>
@@ -387,7 +387,7 @@ export default function LandingPage() {
                         <div className='text-gray-400 dark:text-gray-600'>CNRS</div>
                         <div className='text-gray-400 dark:text-gray-600'>LPO</div>
                         <div className='text-gray-400 dark:text-gray-600'>INRAE</div>
-                        <div className='text-gray-400 dark:text-gray-600'>Museum d'Histoire Naturelle</div>
+                        <div className='text-gray-400 dark:text-gray-600'>{"Museum d'Histoire Naturelle"}</div>
                         <div className='text-gray-400 dark:text-gray-600'>ONF</div>
                     </div>
                 </div>
@@ -403,7 +403,7 @@ export default function LandingPage() {
                         </Badge>
                         <h2 className='text-5xl mb-4 text-gray-900 dark:text-white'>Deux produits complémentaires</h2>
                         <p className='text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto'>
-                            De l'analyse individuelle au partage collaboratif de données
+                            {"De l'analyse individuelle au partage collaboratif de données"}
                         </p>
                     </div>
                     <div className='grid md:grid-cols-2 gap-8 max-w-5xl mx-auto'>
@@ -464,7 +464,7 @@ export default function LandingPage() {
                         </Badge>
                         <h2 className='text-5xl mb-4 text-gray-900 dark:text-white'>Tout ce dont vous avez besoin</h2>
                         <p className='text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto'>
-                            Chironium Studio offre une suite complète d'outils pour l'analyse acoustique
+                            {"Chironium Studio offre une suite complète d'outils pour l'analyse acoustique"}
                         </p>
                     </div>
                     <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-6'>
@@ -500,7 +500,7 @@ export default function LandingPage() {
                             Workflow
                         </Badge>
                         <h2 className='text-5xl mb-4 text-gray-900 dark:text-white'>
-                            De l'import à l'export en 4 étapes
+                            {"De l'import à l'export en 4 étapes"}
                         </h2>
                         <p className='text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto'>
                             Un processus optimisé pour maximiser votre efficacité
@@ -559,7 +559,7 @@ export default function LandingPage() {
                                         ))}
                                     </div>
                                     <p className='text-card-foreground leading-relaxed italic'>
-                                        "{testimonial.content}"
+                                        {`"${testimonial.content}"`}
                                     </p>
                                 </CardHeader>
                                 <CardFooter>
@@ -753,8 +753,9 @@ export default function LandingPage() {
                             </div>
                             <CardTitle className='text-3xl mb-4'>Restez informé des nouveautés</CardTitle>
                             <CardDescription className='text-lg'>
-                                Recevez en avant-première nos mises à jour, tutoriels exclusifs et conseils d'experts
-                                pour optimiser vos analyses acoustiques.
+                                {
+                                    "Recevez en avant-première nos mises à jour, tutoriels exclusifs et conseils d'experts pour optimiser vos analyses acoustiques."
+                                }
                                 <span className='block mt-2 text-[#00C2FF]'>
                                     + un guide gratuit pour démarrer avec Chironium
                                 </span>
@@ -777,7 +778,7 @@ export default function LandingPage() {
                                     size='lg'
                                     className='bg-[#00C2FF] hover:bg-[#00A8E6] text-white shadow-lg shadow-[#00C2FF]/20'
                                 >
-                                    S'inscrire gratuitement
+                                    {"S'inscrire gratuitement"}
                                     <ArrowRight className='w-4 h-4 ml-2' />
                                 </Button>
                             </form>
@@ -836,8 +837,9 @@ export default function LandingPage() {
                                 <span className='text-xl text-gray-900 dark:text-white'>Chironium</span>
                             </div>
                             <p className='text-gray-600 dark:text-gray-400 mb-6 leading-relaxed'>
-                                Suite professionnelle de référence pour l'acoustique des chiroptères. Développée par des
-                                écologues, pour des écologues.
+                                {
+                                    "Suite professionnelle de référence pour l'acoustique des chiroptères. Développée par des écologues, pour des écologues."
+                                }
                             </p>
                             <div className='flex gap-3'>
                                 <a
