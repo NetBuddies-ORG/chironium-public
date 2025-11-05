@@ -12,12 +12,14 @@ export default function Header() {
     return (
         <header className={Classes.header}>
             <div className={Classes.headerContent}>
-                <div className={Classes.logoContainer}>
-                    <div className={Classes.logoIcon}>
-                        <Waves className={Classes.logoSvg} />
+                <Link href='/'>
+                    <div className={Classes.logoContainer}>
+                        <div className={Classes.logoIcon}>
+                            <Waves className={Classes.logoSvg} />
+                        </div>
+                        <span className={Classes.logoText}>Chironium</span>
                     </div>
-                    <span className={Classes.logoText}>Chironium</span>
-                </div>
+                </Link>
                 <nav className={Classes.nav}>
                     <a href='#products'>Produits</a>
                     <a href='#features'>Fonctionnalités</a>

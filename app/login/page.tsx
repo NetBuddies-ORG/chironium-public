@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import type { SVGProps } from 'react';
+import type { SVGProps, ComponentType } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { CardContent, CardFooter } from '@/components/ui/card';
@@ -10,7 +10,6 @@ import { useAuth } from '@/providers/AuthProvider';
 import { useRouter } from 'next/navigation';
 import Classes from './index.module.css';
 
-// Inline brand icons
 const Google = (props: SVGProps<SVGSVGElement>) => (
     <svg viewBox='0 0 24 24' aria-hidden='true' focusable='false' {...props}>
         <path
@@ -38,15 +37,37 @@ const Microsoft = (props: React.SVGProps<SVGSVGElement>) => (
     </svg>
 );
 
-const AuthInput = ({ label, type, value, onChange, placeholder }) => (
+type AuthInputProps = {
+    label: string;
+    type: string;
+    value: string;
+    onChange: React.ChangeEventHandler<HTMLInputElement>;
+    placeholder?: string;
+};
+
+const AuthInput = ({ label, type, value, onChange, placeholder }: AuthInputProps) => (
     <div className={Classes.inputGroup}>
         <label className={Classes.inputLabel}>{label}</label>
         <input className={Classes.input} type={type} value={value} onChange={onChange} placeholder={placeholder} />
     </div>
 );
 
-const SocialButton = ({ icon: Icon, label, onClick, disabled }: { icon: any; label: string; onClick: () => void; disabled?: boolean }) => (
-    <Button type='button' variant='outline' size='default' className={Classes.socialButton} onClick={onClick} disabled={disabled}>
+type SocialButtonProps = {
+    icon: ComponentType<SVGProps<SVGSVGElement>>;
+    label: string;
+    onClick: () => void;
+    disabled?: boolean;
+};
+
+const SocialButton = ({ icon: Icon, label, onClick, disabled }: SocialButtonProps) => (
+    <Button
+        type='button'
+        variant='outline'
+        size='default'
+        className={Classes.socialButton}
+        onClick={onClick}
+        disabled={disabled}
+    >
         <Icon className={Classes.socialIcon} /> {label}
     </Button>
 );
@@ -72,7 +93,10 @@ export default function LoginPage() {
 
     const toggleMode = () => setMode(isSignin ? 'signup' : 'signin');
 
-    const socialProviders = [{ name: 'google', icon: Google, label: 'Continuer avec Google' }];
+    const socialProviders = [
+        { name: 'google', icon: Google, label: 'Continuer avec Google' },
+        { name: 'azure', icon: Microsoft, label: 'Continuer avec Microsoft' },
+    ];
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
