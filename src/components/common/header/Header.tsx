@@ -21,10 +21,10 @@ export default function Header() {
                     </div>
                 </Link>
                 <nav className={Classes.nav}>
-                    <a href='/#products'>Produits</a>
-                    <a href='/#features'>Fonctionnalités</a>
-                    <a href='/#pricing'>Tarifs</a>
-                    <a href='/#testimonials'>Témoignages</a>
+                    <Link href='/#products'>Produits</Link>
+                    <Link href='/#features'>Fonctionnalités</Link>
+                    <Link href='/#pricing'>Tarifs</Link>
+                    <Link href='/#testimonials'>Témoignages</Link>
                 </nav>
                 <div className={Classes.headerActions}>
                     <Button variant='ghost' size='icon' onClick={toggleTheme}>

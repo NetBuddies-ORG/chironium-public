@@ -33,15 +33,50 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { supabaseClient } from '@/lib/supabase/client';
+import Link from 'next/link';
 
 export default function Page() {
     const [newsletterEmail, setNewsletterEmail] = useState('');
+    const [newsletterLoading, setNewsletterLoading] = useState(false);
+    const [newsletterMessage, setNewsletterMessage] = useState<string | null>(null);
+    const [newsletterError, setNewsletterError] = useState<string | null>(null);
     const [billingCycle, setBillingCycle] = useState<'monthly' | 'yearly'>('monthly');
 
-    const handleNewsletterSubmit = (e: React.FormEvent) => {
+    const handleNewsletterSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        setNewsletterEmail('');
-        alert('Merci pour votre inscription !');
+        setNewsletterMessage(null);
+        setNewsletterError(null);
+
+        const email = newsletterEmail.trim().toLowerCase();
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            setNewsletterError('Veuillez saisir une adresse e-mail valide.');
+            return;
+        }
+
+        setNewsletterLoading(true);
+
+        try {
+            const response = await fetch('/api/newsletter', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email }),
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                setNewsletterError(data.error || 'Erreur inconnue');
+            } else {
+                setNewsletterMessage('Merci, votre inscription est bien prise en compte !');
+                setNewsletterEmail('');
+            }
+        } catch (err) {
+            setNewsletterError('Une erreur est survenue. Merci de réessayer.');
+        } finally {
+            setNewsletterLoading(false);
+        }
     };
 
     const products = [
@@ -657,9 +692,6 @@ export default function Page() {
                                 {
                                     "Recevez en avant-première nos mises à jour, tutoriels exclusifs et conseils d'experts pour optimiser vos analyses acoustiques."
                                 }
-                                <span className='block mt-2 text-[#00C2FF]'>
-                                    + un guide gratuit pour démarrer avec Chironium
-                                </span>
                             </CardDescription>
                         </CardHeader>
                         <CardContent>
@@ -674,18 +706,23 @@ export default function Page() {
                                     suppressHydrationWarning
                                     autoComplete='off'
                                 />
+                                <input type='text' name='phone' style={{ display: 'none' }} autoComplete='off' />
                                 <Button
                                     type='submit'
                                     size='lg'
-                                    className='bg-[#00C2FF] hover:bg-[#00A8E6] text-white shadow-lg shadow-[#00C2FF]/20'
+                                    disabled={newsletterLoading}
+                                    className='bg-[#00C2FF] hover:bg-[#00A8E6] text-white shadow-lg shadow-[#00C2FF]/20 disabled:opacity-70'
                                 >
-                                    {"S'inscrire gratuitement"}
+                                    {newsletterLoading ? 'Inscription…' : "S'inscrire gratuitement"}
                                     <ArrowRight className='w-4 h-4 ml-2' />
                                 </Button>
                             </form>
                             <p className='text-xs text-muted-foreground text-center mt-4'>
                                 {'Pas de spam. Désinscription en un clic. Vos données sont protégées.'}
                             </p>
+                            {newsletterMessage && (
+                                <p className='text-sm text-emerald-600 text-center mt-2'>{newsletterMessage}</p>
+                            )}
                         </CardContent>
                     </Card>
                 </div>
@@ -770,28 +807,28 @@ export default function Page() {
                             <h4 className='text-sm text-gray-900 dark:text-white mb-4'>Produits</h4>
                             <ul className='space-y-3 text-sm'>
                                 <li>
-                                    <a
+                                    <Link
                                         href='/#products'
                                         className='text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors'
                                     >
                                         Chironium Studio
-                                    </a>
+                                    </Link>
                                 </li>
                                 <li>
-                                    <a
+                                    <Link
                                         href='/#products'
                                         className='text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors'
                                     >
                                         Chironium Atlas
-                                    </a>
+                                    </Link>
                                 </li>
                                 <li>
-                                    <a
+                                    <Link
                                         href='/#pricing'
                                         className='text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors'
                                     >
                                         Tarifs
-                                    </a>
+                                    </Link>
                                 </li>
                                 <li>
                                     <a
