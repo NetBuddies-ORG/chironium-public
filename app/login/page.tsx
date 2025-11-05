@@ -93,10 +93,7 @@ export default function LoginPage() {
 
     const toggleMode = () => setMode(isSignin ? 'signup' : 'signin');
 
-    const socialProviders = [
-        { name: 'google', icon: Google, label: 'Continuer avec Google' },
-        { name: 'azure', icon: Microsoft, label: 'Continuer avec Microsoft' },
-    ];
+    const socialProviders = [{ name: 'google', icon: Google, label: 'Continuer avec Google' }];
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();

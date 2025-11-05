@@ -220,7 +220,7 @@ export default function Page() {
     ];
 
     return (
-        <div style={{ width: '100%', height: '100%' }}>
+        <div className={'page-container'}>
             {/* Hero Section */}
             <section className='pb-24 px-6 relative overflow-hidden'>
                 {/* Gradient blobs */}
@@ -229,16 +229,6 @@ export default function Page() {
 
                 <div className='container mx-auto max-w-7xl relative'>
                     <div className='max-w-4xl mx-auto text-center'>
-                        <Badge
-                            variant='outline'
-                            className='mb-6 px-4 py-1.5 border-[#00C2FF]/30 dark:border-[#00C2FF]/20 bg-[#00C2FF]/5 dark:bg-[#00C2FF]/10'
-                        >
-                            <Sparkles className='w-3.5 h-3.5 mr-2 text-[#00C2FF]' />
-                            <span className='text-gray-700 dark:text-gray-300'>
-                                {"Suite professionnelle pour l'acoustique des chiroptères"}
-                            </span>
-                        </Badge>
-
                         <h1 className='text-6xl lg:text-7xl mb-6 text-gray-900 dark:text-white leading-[1.1] tracking-tight'>
                             {"Analyse d'ultrasons de chiroptères"}
                         </h1>
@@ -308,23 +298,29 @@ export default function Page() {
             </section>
 
             {/* Social Proof */}
-            <section className='py-12 px-6 border-y border-gray-200 dark:border-[#30363d] bg-gray-50/50 dark:bg-[#161B22]/30'>
-                <div className='container mx-auto max-w-7xl'>
-                    <p className='text-center text-sm text-gray-500 dark:text-gray-500 mb-6'>
-                        Utilisé par des organisations de confiance
-                    </p>
-                    <div className='flex flex-wrap items-center justify-center gap-12 opacity-60'>
-                        <div className='text-gray-400 dark:text-gray-600'>CNRS</div>
-                        <div className='text-gray-400 dark:text-gray-600'>LPO</div>
-                        <div className='text-gray-400 dark:text-gray-600'>INRAE</div>
-                        <div className='text-gray-400 dark:text-gray-600'>{"Museum d'Histoire Naturelle"}</div>
-                        <div className='text-gray-400 dark:text-gray-600'>ONF</div>
-                    </div>
-                </div>
-            </section>
+            {/*<section className='py-12 px-6 border-y border-gray-200 dark:border-[#30363d] bg-gray-50/50 dark:bg-[#161B22]/30'>*/}
+            {/*    <div className='container mx-auto max-w-7xl'>*/}
+            {/*        <p className='text-center text-sm text-gray-500 dark:text-gray-500 mb-6'>*/}
+            {/*            Utilisé par des organisations de confiance*/}
+            {/*        </p>*/}
+            {/*        <div className='flex flex-wrap items-center justify-center gap-12 opacity-60'>*/}
+            {/*            <div className='text-gray-400 dark:text-gray-600'>CNRS</div>*/}
+            {/*            <div className='text-gray-400 dark:text-gray-600'>LPO</div>*/}
+            {/*            <div className='text-gray-400 dark:text-gray-600'>INRAE</div>*/}
+            {/*            <div className='text-gray-400 dark:text-gray-600'>{"Museum d'Histoire Naturelle"}</div>*/}
+            {/*            <div className='text-gray-400 dark:text-gray-600'>ONF</div>*/}
+            {/*        </div>*/}
+            {/*    </div>*/}
+            {/*</section>*/}
 
             {/* Products Section */}
-            <section id='products' className='py-24 px-6 bg-white dark:bg-[#0D1117]'>
+            <section
+                id='products'
+                style={{
+                    borderTop: '1px solid #4A5565FF',
+                }}
+                className='py-24 px-6 bg-white dark:bg-[#0D1117]'
+            >
                 <div className='container mx-auto max-w-7xl'>
                     <div className='text-center mb-16'>
                         <h2 className='text-5xl mb-4 text-gray-900 dark:text-white'>Deux produits complémentaires</h2>
@@ -384,10 +380,6 @@ export default function Page() {
             <section id='features' className='py-24 px-6 bg-gray-50 dark:bg-[#161B22]/30'>
                 <div className='container mx-auto max-w-7xl'>
                     <div className='text-center mb-16'>
-                        <Badge variant='outline' className='mb-4 border-gray-200 dark:border-[#30363d]'>
-                            <Layers className='w-3.5 h-3.5 mr-2' />
-                            Fonctionnalités Studio
-                        </Badge>
                         <h2 className='text-5xl mb-4 text-gray-900 dark:text-white'>Tout ce dont vous avez besoin</h2>
                         <p className='text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto'>
                             {"Chironium Studio offre une suite complète d'outils pour l'analyse acoustique"}
@@ -397,10 +389,7 @@ export default function Page() {
                         {features.map((feature, index) => {
                             const Icon = feature.icon;
                             return (
-                                <Card
-                                    key={index}
-                                    className='group border-gray-200 dark:border-[#30363d] hover:border-[#00C2FF] dark:hover:border-[#00C2FF] transition-all hover:shadow-lg'
-                                >
+                                <Card key={index} className='group transition-all hover:shadow-lg'>
                                     <CardHeader>
                                         <div className='w-11 h-11 bg-[#00C2FF]/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-[#00C2FF] transition-colors'>
                                             <Icon className='w-5 h-5 text-[#00C2FF] group-hover:text-white transition-colors' />
@@ -421,10 +410,6 @@ export default function Page() {
             <section id='workflow' className='py-24 px-6 bg-white dark:bg-[#0D1117]'>
                 <div className='container mx-auto max-w-7xl'>
                     <div className='text-center mb-16'>
-                        <Badge variant='outline' className='mb-4 border-gray-200 dark:border-[#30363d]'>
-                            <TrendingUp className='w-3.5 h-3.5 mr-2' />
-                            Workflow
-                        </Badge>
                         <h2 className='text-5xl mb-4 text-gray-900 dark:text-white'>
                             {"De l'import à l'export en 4 étapes"}
                         </h2>
@@ -436,13 +421,12 @@ export default function Page() {
                         {workflow.map((step, index) => {
                             const Icon = step.icon;
                             return (
-                                <div key={index} className='relative'>
-                                    {index < workflow.length - 1 && (
-                                        <div className='hidden lg:block absolute top-16 -right-3 w-6 h-px bg-gradient-to-r from-[#00C2FF]/50 to-transparent z-10'></div>
-                                    )}
-                                    <Card className='relative border-gray-200 dark:border-[#30363d] hover:shadow-lg transition-shadow'>
+                                <div key={index} className='relative flex-1'>
+                                    <Card
+                                        className='relative hover:shadow-lg transition-shadow'
+                                        style={{ height: '100%' }}
+                                    >
                                         <CardHeader>
-                                            <div className='text-xs text-muted-foreground mb-3'>{step.step}</div>
                                             <div className='w-11 h-11 bg-gradient-to-br from-[#00C2FF] to-[#0096CC] rounded-lg flex items-center justify-center mb-4 shadow-lg shadow-[#00C2FF]/20'>
                                                 <Icon className='w-5 h-5 text-white' />
                                             </div>
@@ -461,60 +445,10 @@ export default function Page() {
                 </div>
             </section>
 
-            {/* Testimonials Section */}
-            <section id='testimonials' className='py-24 px-6 bg-gray-50 dark:bg-[#161B22]/30'>
-                <div className='container mx-auto max-w-7xl'>
-                    <div className='text-center mb-16'>
-                        <Badge variant='outline' className='mb-4 border-gray-200 dark:border-[#30363d]'>
-                            <Users className='w-3.5 h-3.5 mr-2' />
-                            Témoignages
-                        </Badge>
-                        <h2 className='text-5xl mb-4 text-gray-900 dark:text-white'>Ce que disent nos utilisateurs</h2>
-                        <p className='text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto'>
-                            Des professionnels qui font confiance à Chironium au quotidien
-                        </p>
-                    </div>
-                    <div className='grid md:grid-cols-3 gap-8'>
-                        {testimonials.map((testimonial, index) => (
-                            <Card key={index} className='border-gray-200 dark:border-[#30363d] relative'>
-                                <CardHeader>
-                                    <Quote className='w-8 h-8 text-[#00C2FF]/20 mb-4' />
-                                    <div className='flex gap-1 mb-4'>
-                                        {[...Array(testimonial.rating)].map((_, i) => (
-                                            <Star key={i} className='w-4 h-4 fill-[#FF9500] text-[#FF9500]' />
-                                        ))}
-                                    </div>
-                                    <p className='text-card-foreground leading-relaxed italic'>
-                                        {`"${testimonial.content}"`}
-                                    </p>
-                                </CardHeader>
-                                <CardFooter>
-                                    <div className='flex items-center gap-3'>
-                                        <Avatar>
-                                            <AvatarFallback className='bg-[#00C2FF] text-white'>
-                                                {testimonial.avatar}
-                                            </AvatarFallback>
-                                        </Avatar>
-                                        <div>
-                                            <div className='text-sm text-card-foreground'>{testimonial.name}</div>
-                                            <div className='text-xs text-muted-foreground'>{testimonial.role}</div>
-                                        </div>
-                                    </div>
-                                </CardFooter>
-                            </Card>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
             {/* Pricing Section */}
             <section id='pricing' className='py-24 px-6 bg-white dark:bg-[#0D1117]'>
                 <div className='container mx-auto max-w-7xl'>
                     <div className='text-center mb-12'>
-                        <Badge variant='outline' className='mb-4 border-gray-200 dark:border-[#30363d]'>
-                            <Sparkles className='w-3.5 h-3.5 mr-2' />
-                            Tarifs
-                        </Badge>
                         <h2 className='text-5xl mb-4 text-gray-900 dark:text-white'>Choisissez votre plan</h2>
                         <p className='text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mb-8'>
                             Des tarifs transparents adaptés à tous les besoins
@@ -667,6 +601,48 @@ export default function Page() {
                 </div>
             </section>
 
+            {/* Testimonials Section */}
+            <section id='testimonials' className='py-24 px-6 bg-gray-50 dark:bg-[#161B22]/30'>
+                <div className='container mx-auto max-w-7xl'>
+                    <div className='text-center mb-16'>
+                        <h2 className='text-5xl mb-4 text-gray-900 dark:text-white'>Ce que disent nos utilisateurs</h2>
+                        <p className='text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto'>
+                            Des professionnels qui font confiance à Chironium au quotidien
+                        </p>
+                    </div>
+                    <div className='grid md:grid-cols-3 gap-8'>
+                        {testimonials.map((testimonial, index) => (
+                            <Card key={index} className='border-gray-200 dark:border-[#30363d] relative'>
+                                <CardHeader>
+                                    <Quote className='w-8 h-8 text-[#00C2FF]/20 mb-4' />
+                                    <div className='flex gap-1 mb-4'>
+                                        {[...Array(testimonial.rating)].map((_, i) => (
+                                            <Star key={i} className='w-4 h-4 fill-[#FF9500] text-[#FF9500]' />
+                                        ))}
+                                    </div>
+                                    <p className='text-card-foreground leading-relaxed italic'>
+                                        {`"${testimonial.content}"`}
+                                    </p>
+                                </CardHeader>
+                                <CardFooter>
+                                    <div className='flex items-center gap-3'>
+                                        <Avatar>
+                                            <AvatarFallback className='bg-[#00C2FF] text-white'>
+                                                {testimonial.avatar}
+                                            </AvatarFallback>
+                                        </Avatar>
+                                        <div>
+                                            <div className='text-sm text-card-foreground'>{testimonial.name}</div>
+                                            <div className='text-xs text-muted-foreground'>{testimonial.role}</div>
+                                        </div>
+                                    </div>
+                                </CardFooter>
+                            </Card>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
             {/* Newsletter CTA */}
             <section className='py-24 px-6 bg-gray-50 dark:bg-[#161B22]/30 relative overflow-hidden'>
                 <div className='absolute inset-0 bg-gradient-to-br from-[#00C2FF]/5 to-[#FF9500]/5 dark:from-[#00C2FF]/10 dark:to-[#FF9500]/10'></div>
@@ -795,7 +771,7 @@ export default function Page() {
                             <ul className='space-y-3 text-sm'>
                                 <li>
                                     <a
-                                        href='#products'
+                                        href='/#products'
                                         className='text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors'
                                     >
                                         Chironium Studio
@@ -803,7 +779,7 @@ export default function Page() {
                                 </li>
                                 <li>
                                     <a
-                                        href='#products'
+                                        href='/#products'
                                         className='text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors'
                                     >
                                         Chironium Atlas
@@ -811,7 +787,7 @@ export default function Page() {
                                 </li>
                                 <li>
                                     <a
-                                        href='#pricing'
+                                        href='/#pricing'
                                         className='text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors'
                                     >
                                         Tarifs
