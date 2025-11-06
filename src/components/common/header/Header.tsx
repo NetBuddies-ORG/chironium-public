@@ -1,14 +1,14 @@
 'use client';
 
 import Link from 'next/link';
-import { Waves, Sun, Moon } from 'lucide-react';
+import { Waves, Sun, Moon, UserIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useTheme } from '@/providers/ThemeProvider';
 import Classes from './index.module.css';
+import { useAuth } from '@/providers/AuthProvider';
 
 export default function Header() {
-    const { theme, toggleTheme } = useTheme();
-
+    const { user } = useAuth();
     return (
         <header className={Classes.header}>
             <div className={Classes.headerContent}>
@@ -30,8 +30,16 @@ export default function Header() {
                     {/*<Button variant='ghost' size='icon' onClick={toggleTheme}>*/}
                     {/*    {theme === 'dark' ? <Sun /> : <Moon />}*/}
                     {/*</Button>*/}
-                    <Link href='/login'>
-                        <Button variant={'ghost'}>Connexion</Button>
+                    <Link href={user ? '/profile' : '/login'}>
+                        <Button variant={'ghost'}>
+                            {user ? (
+                                <>
+                                    <UserIcon /> Mon compte
+                                </>
+                            ) : (
+                                'Connexion'
+                            )}
+                        </Button>
                     </Link>
                 </div>
             </div>

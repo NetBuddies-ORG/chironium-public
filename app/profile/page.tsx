@@ -1,19 +1,14 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { useAuth } from '@/providers/AuthProvider';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import {
     AlertCircle,
     Calendar,
     Check,
-    ChevronRight,
     CreditCard,
     Crown,
-    Download,
-    ExternalLink,
     FileText,
     Mail,
     Settings,
@@ -21,11 +16,18 @@ import {
     User,
     X,
     Zap,
+    Bell,
+    Shield,
+    Download,
+    Activity,
 } from 'lucide-react';
-import { useTheme } from '@/providers/ThemeProvider';
 import { Separator } from '@/components/ui/separator';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Switch } from '@/components/ui/switch';
+import { Label } from '@/components/ui/label';
+import Account from '@/features/profile/account/Account';
 
 interface Subscription {
     plan: 'free' | 'neo' | 'pro';
@@ -43,42 +45,43 @@ interface Invoice {
 }
 
 export default function ProfilePage() {
-    const router = useRouter();
-    const { user, initializing, signOut } = useAuth();
-
-    useEffect(() => {
-        if (!initializing && !user) {
-            router.replace('/login');
-        }
-    }, [user, initializing, router]);
+    const user = { email: 'jean.dupont@example.com' };
 
     const [subscription, setSubscription] = useState<Subscription>({
-        plan: 'free',
+        plan: 'neo',
         status: 'active',
         currentPeriodEnd: '2025-12-05',
         cancelAtPeriodEnd: false,
     });
 
     const [showCancelDialog, setShowCancelDialog] = useState(false);
+    const [notifications, setNotifications] = useState({
+        email: true,
+        projectUpdates: true,
+        newsletter: false,
+        marketing: false,
+    });
 
-    if (initializing) return null;
-    if (!user) return null;
-
-    // Mock user data
     const userData = {
         name: 'Jean Dupont',
         email: user.email,
         joinDate: '2024-01-15',
         projectsCount: 12,
-        storageUsed: 2.4, // GB
-        storageLimit: subscription.plan === 'free' ? 5 : subscription.plan === 'neo' ? 50 : Infinity,
+        storageUsed: 0.234,
+        storageLimit: subscription.plan === 'free' ? 5 : subscription.plan === 'neo' ? 1 : Infinity,
     };
 
-    // Mock invoices
+    const recentActivity = [
+        { action: 'Projet créé', project: 'Analyse Q4 2024', date: '2024-11-01' },
+        { action: 'Export PDF', project: 'Rapport Marketing', date: '2024-10-28' },
+        { action: 'Collaboration', project: 'Dashboard Analytics', date: '2024-10-25' },
+        { action: 'Mise à jour', project: 'Budget 2025', date: '2024-10-20' },
+    ];
+
     const invoices: Invoice[] = [
-        { id: 'INV-2024-001', date: '2024-11-01', amount: 14.99, status: 'paid', invoiceUrl: '#' },
-        { id: 'INV-2024-002', date: '2024-10-01', amount: 14.99, status: 'paid', invoiceUrl: '#' },
-        { id: 'INV-2024-003', date: '2024-09-01', amount: 14.99, status: 'paid', invoiceUrl: '#' },
+        { id: 'INV-001', date: '2024-11-01', amount: 14.99, status: 'paid', invoiceUrl: '#' },
+        { id: 'INV-002', date: '2024-10-01', amount: 14.99, status: 'paid', invoiceUrl: '#' },
+        { id: 'INV-003', date: '2024-09-01', amount: 14.99, status: 'paid', invoiceUrl: '#' },
     ];
 
     const plans = [
@@ -133,22 +136,8 @@ export default function ProfilePage() {
         },
     ];
 
-    const handleUpgrade = (planId: string) => {
-        // Simulate Stripe Checkout
-        console.log('Opening Stripe Checkout for plan:', planId);
-        alert(
-            `Redirection vers Stripe Checkout pour le plan ${planId.toUpperCase()}...\n\nEn production, cela ouvrira Stripe Checkout.`,
-        );
-        // In production: window.location.href = stripeCheckoutUrl
-    };
-
     const handleManageBilling = () => {
-        // Simulate Stripe Customer Portal
         console.log('Opening Stripe Customer Portal');
-        alert(
-            'Redirection vers le portail client Stripe...\n\nEn production, cela ouvrira le portail client Stripe où vous pourrez gérer vos moyens de paiement, télécharger vos factures, etc.',
-        );
-        // In production: window.location.href = stripeCustomerPortalUrl
     };
 
     const handleCancelSubscription = () => {
@@ -162,107 +151,75 @@ export default function ProfilePage() {
         alert('Votre abonnement a été réactivé !');
     };
 
+    const handleNotificationChange = (key: string) => {
+        setNotifications({ ...notifications, [key]: !notifications[key] });
+    };
+
     const currentPlan = plans.find((p) => p.id === subscription.plan);
-    const storagePercentage = subscription.plan === 'pro' ? 0 : (userData.storageUsed / userData.storageLimit) * 100;
 
     return (
-        <div className={'pt-16'}>
+        <div className='pt-16'>
             <main className='container mx-auto px-6 py-12 md:py-16'>
                 <div className='max-w-7xl mx-auto space-y-10'>
-                    {/* Header Section */}
                     <div>
                         <h1 className='text-4xl mb-3'>Mon Profil</h1>
                         <p className='text-muted-foreground text-lg'>Gérez vos informations et votre abonnement</p>
                     </div>
 
-                    <div className='grid lg:grid-cols-3 gap-8'>
-                        {/* Left Column - User Info & Stats */}
-                        <div className='space-y-6'>
-                            {/* User Info Card */}
-                            <Card>
-                                <CardHeader>
-                                    <CardTitle className='flex items-center gap-2'>
-                                        <User className='w-5 h-5' />
-                                        Informations
-                                    </CardTitle>
-                                </CardHeader>
-                                <CardContent className='space-y-4'>
-                                    <div className='flex items-center gap-3'>
-                                        <div className='w-16 h-16 bg-gradient-to-br from-[#00C2FF] to-[#0096CC] rounded-full flex items-center justify-center text-white text-2xl'>
-                                            {userData.name
-                                                .split(' ')
-                                                .map((n) => n[0])
-                                                .join('')}
-                                        </div>
-                                        <div>
-                                            <div className='text-lg'>{userData.name}</div>
-                                            <div className='text-sm text-muted-foreground flex items-center gap-1'>
-                                                <Mail className='w-3 h-3' />
-                                                {userData.email}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <Separator />
-                                    <div className='space-y-2 text-sm'>
-                                        <div className='flex items-center gap-2 text-muted-foreground'>
-                                            <Calendar className='w-4 h-4' />
-                                            Membre depuis le {new Date(userData.joinDate).toLocaleDateString('fr-FR')}
-                                        </div>
-                                        <div className='flex items-center gap-2 text-muted-foreground'>
-                                            <FileText className='w-4 h-4' />
-                                            {userData.projectsCount} projets créés
-                                        </div>
-                                    </div>
-                                </CardContent>
-                                <CardFooter>
-                                    <Button variant='outline' className='w-full'>
-                                        <Settings className='w-4 h-4 mr-2' />
-                                        Modifier le profil
-                                    </Button>
-                                </CardFooter>
-                            </Card>
-
-                            {/* Storage Card */}
-                            <Card>
-                                <CardHeader>
-                                    <CardTitle className='flex items-center justify-between'>
-                                        <span>Stockage</span>
-                                        <Badge variant='secondary'>
-                                            {userData.storageUsed} /{' '}
-                                            {subscription.plan === 'pro' ? '∞' : userData.storageLimit} GB
-                                        </Badge>
-                                    </CardTitle>
-                                </CardHeader>
-                                <CardContent className='space-y-3'>
-                                    {subscription.plan !== 'pro' && (
-                                        <>
-                                            <Progress value={storagePercentage} className='h-2' />
-                                            {storagePercentage > 80 && (
-                                                <div className='flex items-start gap-2 text-xs text-orange-600 dark:text-orange-400'>
-                                                    <AlertCircle className='w-4 h-4 flex-shrink-0' />
-                                                    <span>Vous approchez de la limite de stockage</span>
-                                                </div>
-                                            )}
-                                        </>
-                                    )}
-                                    {subscription.plan === 'pro' && (
-                                        <div className='text-sm text-muted-foreground'>
-                                            Stockage illimité avec le plan Pro
-                                        </div>
-                                    )}
-                                </CardContent>
-                            </Card>
+                    <Tabs defaultValue='account' className='w-full'>
+                        <div className='border-b mb-8'>
+                            <TabsList className='h-auto p-0 bg-transparent w-full justify-start gap-1'>
+                                <TabsTrigger
+                                    value='account'
+                                    className='gap-2 rounded-none border-b-2 border-transparent data-[state=active]:border-[#00C2FF] data-[state=active]:bg-transparent data-[state=active]:shadow-none px-6 py-3'
+                                >
+                                    <User className='w-4 h-4' />
+                                    <span className='hidden sm:inline font-medium'>Compte</span>
+                                </TabsTrigger>
+                                <TabsTrigger
+                                    value='subscription'
+                                    className='gap-2 rounded-none border-b-2 border-transparent data-[state=active]:border-[#00C2FF] data-[state=active]:bg-transparent data-[state=active]:shadow-none px-6 py-3'
+                                >
+                                    <CreditCard className='w-4 h-4' />
+                                    <span className='hidden sm:inline font-medium'>Abonnement</span>
+                                </TabsTrigger>
+                                <TabsTrigger
+                                    value='billing'
+                                    className='gap-2 rounded-none border-b-2 border-transparent data-[state=active]:border-[#00C2FF] data-[state=active]:bg-transparent data-[state=active]:shadow-none px-6 py-3'
+                                >
+                                    <FileText className='w-4 h-4' />
+                                    <span className='hidden sm:inline font-medium'>Facturation</span>
+                                </TabsTrigger>
+                                <TabsTrigger
+                                    value='notifications'
+                                    className='gap-2 rounded-none border-b-2 border-transparent data-[state=active]:border-[#00C2FF] data-[state=active]:bg-transparent data-[state=active]:shadow-none px-6 py-3'
+                                >
+                                    <Bell className='w-4 h-4' />
+                                    <span className='hidden sm:inline font-medium'>Notifications</span>
+                                </TabsTrigger>
+                                <TabsTrigger
+                                    value='activity'
+                                    className='gap-2 rounded-none border-b-2 border-transparent data-[state=active]:border-[#00C2FF] data-[state=active]:bg-transparent data-[state=active]:shadow-none px-6 py-3'
+                                >
+                                    <Activity className='w-4 h-4' />
+                                    <span className='hidden sm:inline font-medium'>Activité</span>
+                                </TabsTrigger>
+                            </TabsList>
                         </div>
 
-                        {/* Right Column - Subscription */}
-                        <div className='lg:col-span-2 space-y-8'>
-                            {/* Current Subscription */}
-                            <Card className='border-2 border-[#00C2FF]/20'>
-                                <CardHeader>
+                        <TabsContent value='account' className='space-y-8'>
+                            <Account />
+                        </TabsContent>
+
+                        <TabsContent value='subscription' className='space-y-8'>
+                            <Card className='overflow-hidden'>
+                                <CardHeader className='pb-6'>
                                     <div className='flex items-start justify-between'>
                                         <div>
-                                            <CardTitle className='flex items-center gap-2 mb-2'>
-                                                <CreditCard className='w-5 h-5' />
+                                            <CardTitle className='flex items-center gap-3 mb-3 text-xl'>
+                                                <div className='w-10 h-10 rounded-lg bg-gradient-to-br from-[#00C2FF]/10 to-[#0096CC]/10 flex items-center justify-center'>
+                                                    <CreditCard className='w-5 h-5 text-[#00C2FF]' />
+                                                </div>
                                                 Abonnement actuel
                                             </CardTitle>
                                             <CardDescription>
@@ -280,11 +237,11 @@ export default function ProfilePage() {
                                         )}
                                     </div>
                                 </CardHeader>
-                                <CardContent>
+                                <CardContent className='pb-6'>
                                     {currentPlan && (
                                         <div className='space-y-4'>
                                             <div className='flex items-baseline gap-2'>
-                                                <span className='text-4xl'>{currentPlan.price}</span>
+                                                <span className='text-4xl font-bold'>{currentPlan.price}</span>
                                                 <span className='text-muted-foreground'>€ / mois</span>
                                             </div>
 
@@ -348,133 +305,276 @@ export default function ProfilePage() {
                                 </CardContent>
                             </Card>
 
-                            {/* Upgrade Plans */}
-                            {subscription.plan !== 'pro' && (
-                                <Card>
-                                    <CardHeader>
-                                        <CardTitle>Passer à un plan supérieur</CardTitle>
-                                        <CardDescription>
-                                            Débloquez plus de fonctionnalités et de stockage
-                                        </CardDescription>
-                                    </CardHeader>
-                                    <CardContent>
-                                        <div className='grid md:grid-cols-2 gap-4'>
-                                            {plans
-                                                .filter((plan) => {
-                                                    const planOrder = { free: 0, neo: 1, pro: 2 };
-                                                    return (
-                                                        planOrder[plan.id as 'free' | 'neo' | 'pro'] >
-                                                        planOrder[subscription.plan]
-                                                    );
-                                                })
-                                                .map((plan) => {
-                                                    const Icon = plan.icon;
-                                                    return (
-                                                        <Card
-                                                            key={plan.id}
-                                                            className={`border-2 ${plan.popular ? 'border-[#00C2FF]' : 'border-gray-200 dark:border-[#30363d]'}`}
+                            <div>
+                                <h3 className='text-2xl font-semibold mb-6 flex items-center gap-3'>
+                                    <div className='w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500/10 to-purple-600/10 flex items-center justify-center'>
+                                        <Crown className='w-4 h-4 text-purple-600' />
+                                    </div>
+                                    Changer de forfait
+                                </h3>
+                                <div className='grid md:grid-cols-3 gap-6'>
+                                    {plans.map((plan) => {
+                                        const Icon = plan.icon;
+                                        const isCurrentPlan = plan.id === subscription.plan;
+                                        return (
+                                            <Card
+                                                key={plan.id}
+                                                className={isCurrentPlan ? 'border-[#00C2FF] border-2' : ''}
+                                            >
+                                                <CardHeader>
+                                                    <div className='flex items-center justify-between mb-2'>
+                                                        <div
+                                                            className={`w-10 h-10 rounded-lg bg-gradient-to-br ${plan.color} flex items-center justify-center`}
                                                         >
-                                                            <CardHeader>
-                                                                <div
-                                                                    className={`w-10 h-10 bg-gradient-to-br ${plan.color} rounded-lg flex items-center justify-center mb-3`}
-                                                                >
-                                                                    <Icon className='w-5 h-5 text-white' />
-                                                                </div>
-                                                                <CardTitle className='text-xl'>{plan.name}</CardTitle>
-                                                                <div className='flex items-baseline gap-1'>
-                                                                    <span className='text-3xl'>{plan.price}</span>
-                                                                    <span className='text-muted-foreground'>
-                                                                        € / mois
-                                                                    </span>
-                                                                </div>
-                                                            </CardHeader>
-                                                            <CardContent>
-                                                                <div className='space-y-2 mb-4'>
-                                                                    {plan.features.slice(0, 3).map((feature, index) => (
-                                                                        <div
-                                                                            key={index}
-                                                                            className='flex items-center gap-2 text-sm'
-                                                                        >
-                                                                            <Check className='w-4 h-4 text-emerald-500 flex-shrink-0' />
-                                                                            <span>{feature.text}</span>
-                                                                        </div>
-                                                                    ))}
-                                                                </div>
-                                                                <Button
-                                                                    onClick={() => handleUpgrade(plan.id)}
-                                                                    className={`w-full bg-gradient-to-r ${plan.color} text-white hover:opacity-90`}
-                                                                >
-                                                                    Passer à {plan.name}
-                                                                    <ChevronRight className='w-4 h-4 ml-2' />
-                                                                </Button>
-                                                            </CardContent>
-                                                        </Card>
-                                                    );
-                                                })}
-                                        </div>
-                                    </CardContent>
-                                </Card>
-                            )}
-
-                            {/* Invoices */}
-                            {subscription.plan !== 'free' && (
-                                <Card>
-                                    <CardHeader>
-                                        <CardTitle className='flex items-center gap-2'>
-                                            <FileText className='w-5 h-5' />
-                                            Historique de facturation
-                                        </CardTitle>
-                                    </CardHeader>
-                                    <CardContent>
-                                        <div className='space-y-3'>
-                                            {invoices.map((invoice) => (
-                                                <div
-                                                    key={invoice.id}
-                                                    className='flex items-center justify-between p-3 rounded-lg border border-gray-200 dark:border-[#30363d] hover:bg-accent transition-colors'
-                                                >
-                                                    <div className='flex items-center gap-3'>
-                                                        <div className='w-10 h-10 bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center'>
-                                                            <FileText className='w-5 h-5 text-muted-foreground' />
+                                                            <Icon className='w-5 h-5 text-white' />
                                                         </div>
-                                                        <div>
-                                                            <div className='text-sm'>{invoice.id}</div>
-                                                            <div className='text-xs text-muted-foreground'>
-                                                                {new Date(invoice.date).toLocaleDateString('fr-FR')}
-                                                            </div>
-                                                        </div>
+                                                        {plan.popular && (
+                                                            <Badge className='bg-[#00C2FF] text-white'>Populaire</Badge>
+                                                        )}
+                                                        {isCurrentPlan && <Badge variant='secondary'>Actuel</Badge>}
                                                     </div>
-                                                    <div className='flex items-center gap-4'>
-                                                        <div className='text-right'>
-                                                            <div className='text-sm'>{invoice.amount.toFixed(2)} €</div>
-                                                            <Badge
-                                                                variant={
-                                                                    invoice.status === 'paid' ? 'default' : 'secondary'
-                                                                }
-                                                                className='text-xs'
-                                                            >
-                                                                {invoice.status === 'paid' ? 'Payé' : 'En attente'}
-                                                            </Badge>
-                                                        </div>
-                                                        <Button variant='ghost' size='sm'>
-                                                            <Download className='w-4 h-4' />
-                                                        </Button>
+                                                    <CardTitle>{plan.name}</CardTitle>
+                                                    <div className='flex items-baseline gap-1'>
+                                                        <span className='text-3xl font-bold'>{plan.price}</span>
+                                                        <span className='text-muted-foreground'>€/mois</span>
+                                                    </div>
+                                                </CardHeader>
+                                                <CardContent>
+                                                    <div className='space-y-2'>
+                                                        {plan.features.slice(0, 5).map((feature, idx) => (
+                                                            <div key={idx} className='flex items-start gap-2 text-sm'>
+                                                                {feature.included ? (
+                                                                    <Check className='w-4 h-4 text-emerald-500 flex-shrink-0 mt-0.5' />
+                                                                ) : (
+                                                                    <X className='w-4 h-4 text-gray-300 flex-shrink-0 mt-0.5' />
+                                                                )}
+                                                                <span
+                                                                    className={
+                                                                        feature.included ? '' : 'text-muted-foreground'
+                                                                    }
+                                                                >
+                                                                    {feature.text}
+                                                                </span>
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                </CardContent>
+                                                <CardFooter>
+                                                    <Button
+                                                        className='w-full'
+                                                        variant={isCurrentPlan ? 'outline' : 'default'}
+                                                        disabled={isCurrentPlan}
+                                                    >
+                                                        {isCurrentPlan ? 'Plan actuel' : 'Choisir ce plan'}
+                                                    </Button>
+                                                </CardFooter>
+                                            </Card>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+                        </TabsContent>
+
+                        <TabsContent value='billing' className='space-y-8'>
+                            <Card className='overflow-hidden'>
+                                <CardHeader className='pb-6'>
+                                    <CardTitle className='flex items-center gap-3 text-xl'>
+                                        <div className='w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500/10 to-blue-600/10 flex items-center justify-center'>
+                                            <FileText className='w-5 h-5 text-blue-600' />
+                                        </div>
+                                        Historique de facturation
+                                    </CardTitle>
+                                    <CardDescription className='mt-2'>
+                                        Consultez et téléchargez vos factures
+                                    </CardDescription>
+                                </CardHeader>
+                                <CardContent className='pb-6'>
+                                    <div className='space-y-3'>
+                                        {invoices.map((invoice) => (
+                                            <div
+                                                key={invoice.id}
+                                                className='flex items-center justify-between p-4 border rounded-lg hover:bg-accent transition-colors'
+                                            >
+                                                <div className='flex-1'>
+                                                    <div className='font-medium'>{invoice.id}</div>
+                                                    <div className='text-sm text-muted-foreground'>
+                                                        {new Date(invoice.date).toLocaleDateString('fr-FR')}
                                                     </div>
                                                 </div>
-                                            ))}
+                                                <div className='flex items-center gap-4'>
+                                                    <div className='text-right'>
+                                                        <div className='font-semibold'>
+                                                            {invoice.amount.toFixed(2)} €
+                                                        </div>
+                                                        <Badge
+                                                            variant={
+                                                                invoice.status === 'paid' ? 'default' : 'secondary'
+                                                            }
+                                                        >
+                                                            {invoice.status === 'paid' ? 'Payé' : 'En attente'}
+                                                        </Badge>
+                                                    </div>
+                                                    <Button variant='ghost' size='icon'>
+                                                        <Download className='w-4 h-4' />
+                                                    </Button>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </CardContent>
+                            </Card>
+
+                            <Card className='overflow-hidden'>
+                                <CardHeader className='pb-6'>
+                                    <CardTitle className='flex items-center gap-3 text-xl'>
+                                        <div className='w-10 h-10 rounded-lg bg-gradient-to-br from-indigo-500/10 to-indigo-600/10 flex items-center justify-center'>
+                                            <CreditCard className='w-5 h-5 text-indigo-600' />
                                         </div>
-                                    </CardContent>
-                                    <CardFooter>
-                                        <Button variant='outline' className='w-full' onClick={handleManageBilling}>
-                                            <ExternalLink className='w-4 h-4 mr-2' />
-                                            Voir toutes les factures sur Stripe
-                                        </Button>
-                                    </CardFooter>
-                                </Card>
-                            )}
-                        </div>
-                    </div>
+                                        Méthode de paiement
+                                    </CardTitle>
+                                    <CardDescription className='mt-2'>
+                                        Gérez vos informations de paiement
+                                    </CardDescription>
+                                </CardHeader>
+                                <CardContent className='pb-6'>
+                                    <div className='flex items-center justify-between p-4 border rounded-lg'>
+                                        <div className='flex items-center gap-3'>
+                                            <div className='w-12 h-8 bg-gradient-to-br from-blue-500 to-blue-700 rounded flex items-center justify-center'>
+                                                <CreditCard className='w-5 h-5 text-white' />
+                                            </div>
+                                            <div>
+                                                <div className='font-medium'>•••• •••• •••• 4242</div>
+                                                <div className='text-sm text-muted-foreground'>Expire 12/2025</div>
+                                            </div>
+                                        </div>
+                                        <Button variant='outline'>Modifier</Button>
+                                    </div>
+                                </CardContent>
+                            </Card>
+                        </TabsContent>
+
+                        <TabsContent value='notifications' className='space-y-8'>
+                            <Card className='overflow-hidden'>
+                                <CardHeader className='pb-6'>
+                                    <CardTitle className='flex items-center gap-3 text-xl'>
+                                        <div className='w-10 h-10 rounded-lg bg-gradient-to-br from-amber-500/10 to-amber-600/10 flex items-center justify-center'>
+                                            <Bell className='w-5 h-5 text-amber-600' />
+                                        </div>
+                                        Préférences de notification
+                                    </CardTitle>
+                                    <CardDescription className='mt-2'>
+                                        Gérez comment vous souhaitez être informé
+                                    </CardDescription>
+                                </CardHeader>
+                                <CardContent className='space-y-6 pb-6'>
+                                    <div className='flex items-center justify-between'>
+                                        <div className='space-y-0.5'>
+                                            <Label htmlFor='email-notif'>Notifications par email</Label>
+                                            <div className='text-sm text-muted-foreground'>
+                                                Recevoir des emails pour les mises à jour importantes
+                                            </div>
+                                        </div>
+                                        <Switch
+                                            id='email-notif'
+                                            checked={notifications.email}
+                                            onCheckedChange={() => handleNotificationChange('email')}
+                                        />
+                                    </div>
+                                    <Separator />
+                                    <div className='flex items-center justify-between'>
+                                        <div className='space-y-0.5'>
+                                            <Label htmlFor='project-notif'>Mises à jour de projets</Label>
+                                            <div className='text-sm text-muted-foreground'>
+                                                Notifications pour vos projets et collaborations
+                                            </div>
+                                        </div>
+                                        <Switch
+                                            id='project-notif'
+                                            checked={notifications.projectUpdates}
+                                            onCheckedChange={() => handleNotificationChange('projectUpdates')}
+                                        />
+                                    </div>
+                                    <Separator />
+                                    <div className='flex items-center justify-between'>
+                                        <div className='space-y-0.5'>
+                                            <Label htmlFor='newsletter'>Newsletter</Label>
+                                            <div className='text-sm text-muted-foreground'>
+                                                Conseils, actualités et nouvelles fonctionnalités
+                                            </div>
+                                        </div>
+                                        <Switch
+                                            id='newsletter'
+                                            checked={notifications.newsletter}
+                                            onCheckedChange={() => handleNotificationChange('newsletter')}
+                                        />
+                                    </div>
+                                    <Separator />
+                                    <div className='flex items-center justify-between'>
+                                        <div className='space-y-0.5'>
+                                            <Label htmlFor='marketing'>Communications marketing</Label>
+                                            <div className='text-sm text-muted-foreground'>
+                                                Offres spéciales et promotions
+                                            </div>
+                                        </div>
+                                        <Switch
+                                            id='marketing'
+                                            checked={notifications.marketing}
+                                            onCheckedChange={() => handleNotificationChange('marketing')}
+                                        />
+                                    </div>
+                                </CardContent>
+                            </Card>
+                        </TabsContent>
+
+                        <TabsContent value='activity' className='space-y-8'>
+                            <Card className='overflow-hidden'>
+                                <CardHeader className='pb-6'>
+                                    <CardTitle className='flex items-center gap-3 text-xl'>
+                                        <div className='w-10 h-10 rounded-lg bg-gradient-to-br from-green-500/10 to-green-600/10 flex items-center justify-center'>
+                                            <Activity className='w-5 h-5 text-green-600' />
+                                        </div>
+                                        Activité récente
+                                    </CardTitle>
+                                    <CardDescription className='mt-2'>
+                                        Historique de vos actions sur la plateforme
+                                    </CardDescription>
+                                </CardHeader>
+                                <CardContent className='pb-6'>
+                                    <div className='space-y-4'>
+                                        {recentActivity.map((activity, index) => (
+                                            <div
+                                                key={index}
+                                                className='flex items-start gap-4 pb-4 border-b last:border-0'
+                                            >
+                                                <div className='w-2 h-2 bg-[#00C2FF] rounded-full mt-2'></div>
+                                                <div className='flex-1'>
+                                                    <div className='flex items-start justify-between'>
+                                                        <div>
+                                                            <div className='font-medium'>{activity.action}</div>
+                                                            <div className='text-sm text-muted-foreground'>
+                                                                {activity.project}
+                                                            </div>
+                                                        </div>
+                                                        <div className='text-sm text-muted-foreground'>
+                                                            {new Date(activity.date).toLocaleDateString('fr-FR')}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </CardContent>
+                                <CardFooter>
+                                    <Button variant='outline' className='w-full'>
+                                        {"Voir toute l'activité"}
+                                    </Button>
+                                </CardFooter>
+                            </Card>
+                        </TabsContent>
+                    </Tabs>
                 </div>
             </main>
+
             {showCancelDialog && (
                 <div className='fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4'>
                     <Card className='max-w-md w-full'>
@@ -482,7 +582,7 @@ export default function ProfilePage() {
                             <CardTitle>{"Annuler l'abonnement ?"}</CardTitle>
                             <CardDescription>
                                 {
-                                    "Vous perdrez l'accès aux fonctionnalités premium à la fin de votre période defacturation."
+                                    "Vous perdrez l'accès aux fonctionnalités premium à la fin de votre période de facturation."
                                 }
                             </CardDescription>
                         </CardHeader>
