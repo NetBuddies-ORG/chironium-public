@@ -31,7 +31,7 @@ export default function Header() {
                     {/*    {theme === 'dark' ? <Sun /> : <Moon />}*/}
                     {/*</Button>*/}
                     <Link href='/login'>
-                        <Button variant={'ghost'} >Connexion</Button>
+                        <Button variant={'ghost'}>Connexion</Button>
                     </Link>
                 </div>
             </div>

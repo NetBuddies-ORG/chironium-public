@@ -35,7 +35,7 @@ import { Separator } from '@/components/ui/separator';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { supabaseClient } from '@/lib/supabase/client';
 import Link from 'next/link';
-import HeroSection from "@/features/landing/hero-section/HeroSection";
+import HeroSection from '@/features/landing/hero-section/HeroSection';
 
 export default function Page() {
     const [newsletterEmail, setNewsletterEmail] = useState('');
