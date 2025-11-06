@@ -52,9 +52,6 @@ export default function ProfilePage() {
         }
     }, [user, initializing, router]);
 
-    if (initializing) return null;
-    if (!user) return null;
-
     const [subscription, setSubscription] = useState<Subscription>({
         plan: 'free',
         status: 'active',
@@ -63,6 +60,9 @@ export default function ProfilePage() {
     });
 
     const [showCancelDialog, setShowCancelDialog] = useState(false);
+
+    if (initializing) return null;
+    if (!user) return null;
 
     // Mock user data
     const userData = {
@@ -318,7 +318,7 @@ export default function ProfilePage() {
                                                                 onClick={handleReactivateSubscription}
                                                                 className='bg-orange-600 hover:bg-orange-700 text-white'
                                                             >
-                                                                Réactiver l'abonnement
+                                                                {"Réactiver l'abonnement"}
                                                             </Button>
                                                         </div>
                                                     </div>
@@ -479,10 +479,11 @@ export default function ProfilePage() {
                 <div className='fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4'>
                     <Card className='max-w-md w-full'>
                         <CardHeader>
-                            <CardTitle>Annuler l'abonnement ?</CardTitle>
+                            <CardTitle>{"Annuler l'abonnement ?"}</CardTitle>
                             <CardDescription>
-                                Vous perdrez l'accès aux fonctionnalités premium à la fin de votre période de
-                                facturation.
+                                {
+                                    "Vous perdrez l'accès aux fonctionnalités premium à la fin de votre période defacturation."
+                                }
                             </CardDescription>
                         </CardHeader>
                         <CardContent>
@@ -505,7 +506,7 @@ export default function ProfilePage() {
                                 onClick={handleCancelSubscription}
                                 className='flex-1 bg-red-600 hover:bg-red-700 text-white'
                             >
-                                Confirmer l'annulation
+                                {"Confirmer l'annulation"}
                             </Button>
                         </CardFooter>
                     </Card>
