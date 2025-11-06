@@ -1,14 +1,11 @@
 .header {
-    position: fixed;
+    position: sticky;
     top: 0;
     left: 0;
     right: 0;
     height: 4rem;
     display: flex;
     align-items: center;
-
-    /* Utilise une couleur semi-transparente qui change selon le thème */
-    background-color: rgba(var(--header-bg-rgb), 0.5);
     backdrop-filter: blur(16px);
 
     z-index: 50;

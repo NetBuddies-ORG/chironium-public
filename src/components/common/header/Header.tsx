@@ -27,11 +27,11 @@ export default function Header() {
                     <Link href='/#testimonials'>Témoignages</Link>
                 </nav>
                 <div className={Classes.headerActions}>
-                    <Button variant='ghost' size='icon' onClick={toggleTheme}>
-                        {theme === 'dark' ? <Sun /> : <Moon />}
-                    </Button>
+                    {/*<Button variant='ghost' size='icon' onClick={toggleTheme}>*/}
+                    {/*    {theme === 'dark' ? <Sun /> : <Moon />}*/}
+                    {/*</Button>*/}
                     <Link href='/login'>
-                        <Button>Connexion</Button>
+                        <Button variant={'ghost'} >Connexion</Button>
                     </Link>
                 </div>
             </div>

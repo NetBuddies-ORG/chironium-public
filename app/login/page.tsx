@@ -118,7 +118,7 @@ export default function LoginPage() {
     };
 
     return (
-        <div className={'page-container'}>
+        <div className={Classes.container}>
             <div className={Classes.mainContent}>
                 <div className={Classes.titleContainer}>
                     <h1 className={Classes.title}>{isSignin ? 'Bienvenue' : 'Rejoignez Chironium'}</h1>

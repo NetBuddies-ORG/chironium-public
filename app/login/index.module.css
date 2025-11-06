@@ -1,4 +1,9 @@
 /* Base container */
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 .mainContent {
     width: 100%;
