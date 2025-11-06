@@ -221,12 +221,14 @@ export default function LoginPage() {
                     </CardContent>
 
                     <CardFooter className={Classes.cardFooter}>
-                        <Button variant='link' onClick={toggleMode}>
+                        <div className={'flex gap-0.5 items-center'}>
                             {isSignin ? `Vous n'avez pas de compte ? ` : 'Déjà un compte ? '}
-                            <span className={Classes.footerAction}>
-                                {isSignin ? `Inscrivez-vous` : 'Connectez-vous'}
-                            </span>
-                        </Button>
+                            <Button variant='link' onClick={toggleMode}>
+                                <span className={Classes.footerAction}>
+                                    {isSignin ? `Inscrivez-vous` : 'Connectez-vous'}
+                                </span>
+                            </Button>
+                        </div>
 
                         {isSignin && (
                             <Button variant='link-secondary'>

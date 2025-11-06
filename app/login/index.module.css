@@ -154,7 +154,6 @@
 }
 
 .footerAction {
-    color: var(--playhead-color);
     text-decoration: none;
 }
 
@@ -163,7 +162,6 @@
 }
 
 .cardFooter a {
-    color: var(--playhead-color);
     font-size: 0.85rem;
     text-decoration: none;
 }

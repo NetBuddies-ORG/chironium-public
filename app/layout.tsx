@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
     return (
-        <html lang='fr' suppressHydrationWarning={true} className={'dark'}>
+        <html lang='fr' suppressHydrationWarning={true}>
             <SpeedInsights />
             <Analytics />
             <ThemeProvider>
@@ -26,11 +26,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                         <div className={'glow-bottom-right'}></div>
                         <div className={'noise-overlay'}></div>
 
-                        {/* Header global */}
                         <Header />
-
-                        {/* Main content */}
-                        <main className={'main'}>{children}</main>
+                        <main>{children}</main>
                     </body>
                 </AuthProvider>
             </ThemeProvider>

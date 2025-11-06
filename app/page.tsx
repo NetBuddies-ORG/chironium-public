@@ -33,7 +33,6 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { supabaseClient } from '@/lib/supabase/client';
 import Link from 'next/link';
 import HeroSection from '@/features/landing/hero-section/HeroSection';
 
@@ -170,30 +169,30 @@ export default function Page() {
 
     const testimonials = [
         {
-            name: 'Dr. Sophie Laurent',
-            role: 'Écologue, CNRS',
+            name: 'Sophie L.',
+            role: 'Écologue de terrain',
             avatar: 'SL',
-            image: 'https://images.unsplash.com/photo-1758685734503-58a8accc24e8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjByZXNlYXJjaGVyJTIwc2NpZW50aXN0fGVufDF8fHx8MTc2MjAyMjI5N3ww&ixlib=rb-4.1.0&q=80&w=1080',
+            image: null,
             content:
-                "Chironium Studio a révolutionné notre workflow d'analyse. Ce qui prenait des heures ne prend maintenant que quelques minutes. L'interface est intuitive et les résultats sont précis.",
+                "Chironium a simplifié nos analyses de terrain : la visualisation des spectres est rapide et permet d'identifier les sons pertinents en un clin d’œil. Gain de temps réel pour préparer nos rapports.",
             rating: 5,
         },
         {
-            name: 'Marc Dubois',
-            role: 'Naturaliste indépendant',
-            avatar: 'MD',
-            image: 'https://images.unsplash.com/photo-1639486649969-61296ce0a5ce?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxlY29sb2dpc3QlMjBuYXR1cmUlMjBzdHVkeXxlbnwxfHx8fDE3NjIwMjIyOTd8MA&ixlib=rb-4.1.0&q=80&w=1080',
+            name: 'Émilie R.',
+            role: 'Consultante environnementale',
+            avatar: 'ER',
+            image: null,
             content:
-                "En tant que consultant, j'ai besoin d'outils fiables et professionnels. Chironium répond parfaitement à mes besoins avec ses exports CSV et sa gestion multi-projets.",
-            rating: 5,
+                "Interface intuitive, exports propres — parfait pour préparer des livrables clients. Le support a été réactif quand j'ai eu besoin d'aide pour importer des sessions.",
+            rating: 4,
         },
         {
-            name: 'Alice Moreau',
-            role: "Chargée d'études, LPO",
-            avatar: 'AM',
-            image: 'https://images.unsplash.com/photo-1593594926126-d0ed6fb8a638?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxiYXQlMjBjb25zZXJ2YXRpb24lMjB3aWxkbGlmZXxlbnwxfHx8fDE3NjIwMjIyOTd8MA&ixlib=rb-4.1.0&q=80&w=1080',
+            name: 'Alex F.',
+            role: 'Coordinateur de projet terrain',
+            avatar: 'AF',
+            image: null,
             content:
-                "La possibilité de géolocaliser nos points de collecte directement dans l'application est un vrai plus. Nos rapports sont maintenant beaucoup plus complets.",
+                "La possibilité d'agréger plusieurs sessions et d'exporter proprement accélère la préparation des tableaux de bord. Recommande pour les petites équipes.",
             rating: 5,
         },
     ];
@@ -201,62 +200,57 @@ export default function Page() {
     const pricingPlans = [
         {
             name: 'Gratuit',
-            price: { monthly: 0, yearly: 0 },
-            description: 'Découvrez Chironium avec la version web',
+            price: { monthly: 0.0, yearly: 0.0 },
+            description: 'Idéal pour découvrir Chironium et analyser un premier projet en version web.',
             badge: null,
             features: [
-                { text: 'Version web uniquement', included: true },
+                { text: 'Accès web uniquement', included: true },
                 { text: '1 projet actif', included: true },
-                { text: 'Spectrogramme basique', included: true },
-                { text: 'Export CSV limité', included: true },
-                { text: 'Support communautaire', included: true },
+                { text: 'Export CSV partiel', included: true },
                 { text: 'Application desktop', included: false },
-                { text: 'Projets illimités', included: false },
-                { text: 'Support prioritaire', included: false },
+                { text: 'Analyse FFT avancée', included: false },
             ],
             cta: 'Commencer gratuitement',
             popular: false,
         },
         {
             name: 'Neo',
-            price: { monthly: 9.99, yearly: 99 },
-            description: 'Pour les naturalistes professionnels',
+            price: { monthly: 6.99, yearly: 69.99 },
+            description: 'Pour les naturalistes indépendants qui veulent le contrôle total de leurs données.',
             badge: 'Populaire',
             features: [
-                { text: 'Application desktop complète', included: true },
-                { text: 'Projets illimités', included: true },
-                { text: 'Spectrogramme HD', included: true },
-                { text: 'Analyse FFT avancée', included: true },
+                { text: 'Application desktop', included: true },
+                { text: '3 projets actifs', included: true },
+                { text: 'Spectrogramme avancé', included: true },
                 { text: 'Export CSV illimité', included: true },
-                { text: 'Géolocalisation GPS', included: true },
-                { text: 'Support par email', included: true },
-                { text: 'Mises à jour prioritaires', included: false },
+                { text: 'Analyse FFT avancée', included: false },
+                { text: 'Reconnaissance IA', included: false },
+                { text: 'Géolocalisation GPS avancée', included: false },
             ],
             cta: 'Essayer Neo',
             popular: true,
         },
         {
             name: 'Pro',
-            price: { monthly: 29.99, yearly: 299 },
-            description: "Pour les équipes et bureaux d'études",
+            price: { monthly: 29.99, yearly: 299.99 },
+            description: "Pour les bureaux d'études et équipes de recherche exigeantes.",
             badge: 'Avancé',
             features: [
-                { text: 'Tout de Neo, plus:', included: true },
+                { text: 'Analyse FFT avancée', included: true },
+                { text: 'Reconnaissance IA', included: true },
+                { text: 'Géolocalisation GPS avancée', included: true },
                 { text: 'Collaboration en équipe', included: true },
                 { text: 'API et intégrations', included: true },
                 { text: 'Stockage cloud illimité', included: true },
-                { text: 'Support prioritaire 24/7', included: true },
-                { text: 'Formation personnalisée', included: true },
-                { text: 'Rapports personnalisés', included: true },
-                { text: 'SLA garanti', included: true },
+                { text: 'Support 24/7 prioritaire', included: true },
             ],
-            cta: 'Essayer Pro',
+            cta: 'Contacter l’équipe',
             popular: false,
         },
     ];
 
     return (
-        <div className={'page-container'}>
+        <div>
             {/* Hero Section */}
             <HeroSection />
 
@@ -277,13 +271,7 @@ export default function Page() {
             {/*</section>*/}
 
             {/* Products Section */}
-            <section
-                id='products'
-                style={{
-                    borderTop: '1px solid #4A5565FF',
-                }}
-                className='py-24 px-6 bg-white dark:bg-[#0D1117]'
-            >
+            <section id='products' className='py-24 px-6 bg-white dark:bg-[#0D1117]'>
                 <div className='container mx-auto max-w-7xl'>
                     <div className='text-center mb-16'>
                         <h2 className='text-5xl mb-4 text-gray-900 dark:text-white'>Deux produits complémentaires</h2>
@@ -421,7 +409,7 @@ export default function Page() {
                         <div className='inline-flex items-center gap-3 p-1 bg-gray-100 dark:bg-[#161B22] border border-gray-200 dark:border-[#30363d] rounded-lg'>
                             <button
                                 onClick={() => setBillingCycle('monthly')}
-                                className={`px-6 py-2 rounded-md text-sm transition-all ${
+                                className={`cursor-pointer px-6 py-2 rounded-md text-sm transition-all ${
                                     billingCycle === 'monthly'
                                         ? 'bg-gray-900 dark:bg-white text-white dark:text-gray-900'
                                         : 'text-gray-600 dark:text-gray-400'
@@ -431,7 +419,7 @@ export default function Page() {
                             </button>
                             <button
                                 onClick={() => setBillingCycle('yearly')}
-                                className={`px-6 py-2 rounded-md text-sm transition-all flex items-center gap-2 ${
+                                className={`cursor-pointer px-6 py-2 rounded-md text-sm transition-all flex items-center gap-2 ${
                                     billingCycle === 'yearly'
                                         ? 'bg-gray-900 dark:bg-white text-white dark:text-gray-900'
                                         : 'text-gray-600 dark:text-gray-400'
@@ -440,7 +428,12 @@ export default function Page() {
                                 Annuel
                                 <Badge
                                     variant='secondary'
-                                    className='bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 border-0'
+                                    className={
+                                        'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 border-0' +
+                                        (billingCycle === 'yearly'
+                                            ? ' bg-white dark:bg-[#161B22] text-gray-900 dark:text-white'
+                                            : '')
+                                    }
                                 >
                                     -17%
                                 </Badge>
@@ -480,7 +473,7 @@ export default function Page() {
                                         </div>
                                     </div>
                                 </CardHeader>
-                                <CardContent>
+                                <CardContent className={'flex-1'}>
                                     <ul className='space-y-3 mb-6'>
                                         {plan.features.map((feature, fIndex) => (
                                             <li key={fIndex} className='flex items-start gap-3'>
@@ -518,9 +511,9 @@ export default function Page() {
                     </div>
 
                     {/* Enterprise Section */}
-                    <Card className='border-gray-200 dark:border-[#30363d] bg-gradient-to-br from-gray-50 to-white dark:from-[#21262d] dark:to-[#161B22]'>
+                    <Card className='border-gray-200  bg-gradient-to-br from-gray-50 to-white'>
                         <CardHeader>
-                            <div className='flex items-start justify-between'>
+                            <div className='flex items-start justify-between relative'>
                                 <div>
                                     <div className='flex items-center gap-3 mb-2'>
                                         <Building2 className='w-6 h-6 text-[#00C2FF]' />
@@ -530,7 +523,10 @@ export default function Page() {
                                         Solutions sur mesure pour les grandes organisations et institutions de recherche
                                     </CardDescription>
                                 </div>
-                                <Button variant='outline' className='border-gray-300 dark:border-[#30363d]'>
+                                <Button
+                                    variant='ghost'
+                                    className='bg-[#00C2FF] hover:bg-[#00A8E6] text-white shadow-xl shadow-[#00C2FF]/20 px-8 h-12 absolute right-0 top-0'
+                                >
                                     Nous contacter
                                 </Button>
                             </div>
@@ -576,7 +572,7 @@ export default function Page() {
                     <div className='grid md:grid-cols-3 gap-8'>
                         {testimonials.map((testimonial, index) => (
                             <Card key={index} className='border-gray-200 dark:border-[#30363d] relative'>
-                                <CardHeader>
+                                <CardHeader className='flex-1'>
                                     <Quote className='w-8 h-8 text-[#00C2FF]/20 mb-4' />
                                     <div className='flex gap-1 mb-4'>
                                         {[...Array(testimonial.rating)].map((_, i) => (

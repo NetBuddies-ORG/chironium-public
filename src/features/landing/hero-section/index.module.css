@@ -1,0 +1,33 @@
+.section {
+    position: relative;
+    padding: 4rem 1rem 2rem 1rem;
+}
+
+.container {
+    max-width: 56rem;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.textContainer {
+    text-align: center;
+
+    h1 {
+        font-weight: 500;
+        margin-bottom: 1rem;
+        color: var(--foreground);
+        font-size: var(--text-6xl);
+        line-height: var(--tw-leading, var(--text-6xl--line-height));
+        --tw-tracking: var(--tracking-tight);
+        letter-spacing: var(--tracking-tight);
+    }
+}
+
+@media (width >= 64rem) {
+    .textContainer h1 {
+        font-size: var(--text-7xl);
+        line-height: var(--tw-leading, var(--text-7xl--line-height));
+    }
+}

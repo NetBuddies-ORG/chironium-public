@@ -1,19 +1,18 @@
 import { Button } from '@/components/ui/button';
 import { ArrowRight, CheckCircle2, Download } from 'lucide-react';
 import ImageWithFallback from '@/components/figma/ImageWithFallback';
+import Classes from './index.module.css';
 
 export default function HeroSection() {
     return (
-        <section className='pb-24 px-6 relative overflow-hidden' style={{ paddingTop: '4rem' }}>
+        <section className={Classes.section}>
             {/* Gradient blobs */}
             <div className='absolute top-0 left-1/4 w-96 h-96 bg-[#00C2FF]/10 dark:bg-[#00C2FF]/5 rounded-full blur-3xl'></div>
             <div className='absolute bottom-0 right-1/4 w-96 h-96 bg-[#FF9500]/10 dark:bg-[#FF9500]/5 rounded-full blur-3xl'></div>
 
-            <div className='container mx-auto max-w-7xl relative'>
-                <div className='max-w-4xl mx-auto text-center'>
-                    <h1 className='text-6xl lg:text-7xl mb-6 text-gray-900 dark:text-white leading-[1.1] tracking-tight'>
-                        {"Analyse d'ultrasons de chiroptères"}
-                    </h1>
+            <div className={Classes.container}>
+                <div className={Classes.textContainer}>
+                    <h1>{"Analyse d'ultrasons de chiroptères"}</h1>
 
                     <p className='text-xl text-gray-600 dark:text-gray-400 mb-10 leading-relaxed max-w-3xl mx-auto'>
                         {

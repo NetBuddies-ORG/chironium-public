@@ -27,12 +27,6 @@ import { Separator } from '@/components/ui/separator';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 
-interface ProfileDashboardProps {
-    userEmail: string;
-    onNavigateToProjects: () => void;
-    onLogout: () => void;
-}
-
 interface Subscription {
     plan: 'free' | 'neo' | 'pro';
     status: 'active' | 'canceled' | 'past_due';
@@ -61,7 +55,6 @@ export default function ProfilePage() {
     if (initializing) return null;
     if (!user) return null;
 
-    const { theme, toggleTheme } = useTheme();
     const [subscription, setSubscription] = useState<Subscription>({
         plan: 'free',
         status: 'active',
@@ -173,7 +166,7 @@ export default function ProfilePage() {
     const storagePercentage = subscription.plan === 'pro' ? 0 : (userData.storageUsed / userData.storageLimit) * 100;
 
     return (
-        <div className={'page-container'}>
+        <div className={'pt-16'}>
             <main className='container mx-auto px-6 py-12 md:py-16'>
                 <div className='max-w-7xl mx-auto space-y-10'>
                     {/* Header Section */}
