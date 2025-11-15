@@ -19,20 +19,26 @@ export function useTheme() {
 }
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-    const [theme, setTheme] = useState<Theme>('light'); // default value (safe for SSR)
+    const [theme, setTheme] = useState<Theme>('dark');
 
-    // Load initial theme on client
+    // Charger le thème initial
     useEffect(() => {
         const saved = localStorage.getItem('chironium-theme');
+
         if (saved === 'light' || saved === 'dark') {
             setTheme(saved);
             return;
         }
+
+        // ❗ Correction : dark system → dark theme
         if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            setTheme('dark');
+        } else {
             setTheme('light');
         }
     }, []);
 
+    // Appliquer le thème au document
     useEffect(() => {
         const root = document.documentElement;
         root.classList.remove('light', 'dark');

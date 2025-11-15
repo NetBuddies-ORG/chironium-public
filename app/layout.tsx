@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
     return (
-        <html lang='fr' suppressHydrationWarning={true}>
+        <html lang='fr' className='dark' data-theme='dark' suppressHydrationWarning={true}>
             <SpeedInsights />
             <Analytics />
             <ThemeProvider>
