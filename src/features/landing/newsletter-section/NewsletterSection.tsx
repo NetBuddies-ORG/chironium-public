@@ -78,7 +78,7 @@ export default function NewsletterSection() {
                                 type='submit'
                                 size='lg'
                                 disabled={newsletterLoading}
-                                className='bg-[#00C2FF] hover:bg-[#00A8E6] text-white shadow-lg shadow-[#00C2FF]/20 disabled:opacity-70'
+                                className='bg-[#00C2FF] hover:bg-[#00A8E6] text-white shadow-lg shadow-[#00C2FF]/20 disabled:opacity-70 h-auto'
                             >
                                 {newsletterLoading ? 'Inscription…' : "S'inscrire gratuitement"}
                                 <ArrowRight className='w-4 h-4 ml-2' />
