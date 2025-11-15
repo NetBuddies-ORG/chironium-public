@@ -21,7 +21,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             <Analytics />
             <ThemeProvider>
                 <AuthProvider>
-                    <body>
+                    <body style={{ width: '100%', overflowX: 'hidden' }}>
                         {/* Background & noise */}
                         <div className={'glow-top-left'}></div>
                         <div className={'glow-bottom-right'}></div>

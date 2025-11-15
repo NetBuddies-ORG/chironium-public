@@ -3,31 +3,14 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import {
-    AlertCircle,
-    Calendar,
-    Check,
-    CreditCard,
-    Crown,
-    FileText,
-    Mail,
-    Settings,
-    TrendingUp,
-    User,
-    X,
-    Zap,
-    Bell,
-    Shield,
-    Download,
-    Activity,
-} from 'lucide-react';
+import { CreditCard, FileText, User, Bell, Download, Activity } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
-import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 import Account from '@/features/profile/account/Account';
+import Subscription from '@/features/profile/subscription/Subscription';
 
 interface Invoice {
     id: string;
@@ -118,7 +101,9 @@ export default function ProfilePage() {
                             <Account />
                         </TabsContent>
 
-                        <TabsContent value='subscription' className='space-y-8'></TabsContent>
+                        <TabsContent value='subscription' className='space-y-8'>
+                            <Subscription />
+                        </TabsContent>
 
                         <TabsContent value='billing' className='space-y-8'>
                             <Card className='overflow-hidden'>
