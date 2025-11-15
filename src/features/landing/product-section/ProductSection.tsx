@@ -1,7 +1,7 @@
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Share2, Waves } from 'lucide-react';
+import { ArrowRight, Share2, Waves, Radio } from 'lucide-react';
 
 export default function ProductSection() {
     const products = [
@@ -21,6 +21,15 @@ export default function ProductSection() {
             details:
                 'Plateforme de partage de données acoustiques vérifiées par la communauté. Cartographie collaborative et base de données contributive.',
             color: 'from-[#FF9500] to-[#FF7700]',
+            badge: 'Bientôt',
+        },
+        {
+            name: 'Chironium Live',
+            icon: Radio,
+            description: 'Détections en direct, où que vous soyez',
+            details:
+                "Visualisez l'activité acoustique minute par minute et transformez vos relevés en insights. Partagez vos captures directement sur Studio. Disponible sur desktop et mobile",
+            color: 'from-[#FF9500] to-[#0096CC]',
             badge: 'Bientôt',
         },
     ];
