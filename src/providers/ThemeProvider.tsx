@@ -19,7 +19,7 @@ export function useTheme() {
 }
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-    const [theme, setTheme] = useState<Theme>('dark'); // default value (safe for SSR)
+    const [theme, setTheme] = useState<Theme>('light'); // default value (safe for SSR)
 
     // Load initial theme on client
     useEffect(() => {
@@ -29,7 +29,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
             return;
         }
         if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            setTheme('dark');
+            setTheme('light');
         }
     }, []);
 
