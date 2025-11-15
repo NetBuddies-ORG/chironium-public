@@ -28,10 +28,10 @@ export default function Page() {
             <WorkflowSection />
 
             {/* Pricing Section */}
-            <PricingSection />
+            {/*<PricingSection />*/}
 
             {/* Testimonials Section */}
-            <TestimonialsSection />
+            {/*<TestimonialsSection />*/}
 
             {/* Newsletter CTA */}
             <NewsletterSection />

@@ -23,15 +23,15 @@ export default function ProductSection() {
             color: 'from-[#FF9500] to-[#FF7700]',
             badge: 'Bientôt',
         },
-        {
-            name: 'Chironium Live',
-            icon: Radio,
-            description: 'Détections en direct, où que vous soyez',
-            details:
-                "Visualisez l'activité acoustique minute par minute et transformez vos relevés en insights. Partagez vos captures directement sur Studio. Disponible sur desktop et mobile",
-            color: 'from-[#FF9500] to-[#0096CC]',
-            badge: 'Bientôt',
-        },
+        // {
+        //     name: 'Chironium Live',
+        //     icon: Radio,
+        //     description: 'Détections en direct, où que vous soyez',
+        //     details:
+        //         "Visualisez l'activité acoustique minute par minute et transformez vos relevés en insights. Partagez vos captures directement sur Studio. Disponible sur desktop et mobile",
+        //     color: 'from-[#FF9500] to-[#0096CC]',
+        //     badge: 'Bientôt',
+        // },
     ];
 
     return (
