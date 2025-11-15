@@ -7,6 +7,7 @@ import { AuthProvider } from '@/providers/AuthProvider';
 import Header from '@/components/common/header/Header';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Analytics } from '@vercel/analytics/next';
+import Footer from '@/components/common/footer/Footer';
 
 export const metadata: Metadata = {
     title: 'Chironium',
@@ -28,6 +29,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 
                         <Header />
                         <main>{children}</main>
+                        <Footer />
                     </body>
                 </AuthProvider>
             </ThemeProvider>

@@ -8,6 +8,8 @@ import Classes from './index.module.css';
 import { useAuth } from '@/providers/AuthProvider';
 
 export default function Header() {
+    const { theme, toggleTheme } = useTheme();
+
     const { user } = useAuth();
     return (
         <header className={Classes.header}>
@@ -27,9 +29,6 @@ export default function Header() {
                     <Link href='/#testimonials'>Témoignages</Link>
                 </nav>
                 <div className={Classes.headerActions}>
-                    {/*<Button variant='ghost' size='icon' onClick={toggleTheme}>*/}
-                    {/*    {theme === 'dark' ? <Sun /> : <Moon />}*/}
-                    {/*</Button>*/}
                     <Link href={user ? '/profile' : '/login'}>
                         <Button variant={'ghost'}>
                             {user ? (
@@ -41,6 +40,9 @@ export default function Header() {
                             )}
                         </Button>
                     </Link>
+                    <Button variant='ghost' size='icon' onClick={toggleTheme}>
+                        {theme === 'dark' ? <Sun /> : <Moon />}
+                    </Button>
                 </div>
             </div>
         </header>

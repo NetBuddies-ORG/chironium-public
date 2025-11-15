@@ -54,12 +54,12 @@ export default function HeroSection() {
                 <div className='mt-20 max-w-5xl mx-auto'>
                     <div className='relative group'>
                         <div className='absolute -inset-1 bg-gradient-to-r from-[#00C2FF] to-[#FF9500] rounded-2xl blur-2xl opacity-20 group-hover:opacity-30 transition-opacity'></div>
-                        <div className='relative bg-gray-100 dark:bg-[#161B22] rounded-xl p-3 shadow-2xl border border-gray-200/50 dark:border-[#30363d]/50'>
+                        <div className='relative dark:bg-gray-100 bg-[#161B22] rounded-xl p-3 shadow-2xl border dark:border-gray-200/50 border-[#30363d]/50'>
                             <div className='flex items-center gap-2 mb-3 px-3'>
                                 <div className='w-3 h-3 bg-red-500 rounded-full'></div>
                                 <div className='w-3 h-3 bg-yellow-500 rounded-full'></div>
                                 <div className='w-3 h-3 bg-green-500 rounded-full'></div>
-                                <div className='ml-auto text-xs text-gray-500 dark:text-gray-500'>Chironium Studio</div>
+                                <div className='ml-auto text-xs dark:text-gray-500 text-gray-500'>Chironium Studio</div>
                             </div>
                             <ImageWithFallback
                                 src='https://images.unsplash.com/photo-1759661966728-4a02e3c6ed91?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxkYXRhJTIwYW5hbHlzaXMlMjBkYXNoYm9hcmR8ZW58MXx8fHwxNzYyMDIxMzE5fDA&ixlib=rb-4.1.0&q=80&w=1080'
