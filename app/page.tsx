@@ -4,8 +4,6 @@ import HeroSection from '@/features/landing/hero-section/HeroSection';
 import ProductSection from '@/features/landing/product-section/ProductSection';
 import FeaturesSection from '@/features/landing/features-section/FeaturesSection';
 import WorkflowSection from '@/features/landing/workflow-section/WorkflowSection';
-import PricingSection from '@/features/landing/pricing-section/PricingSection';
-import TestimonialsSection from '@/features/landing/testimonials-section/TestimonialsSection';
 import NewsletterSection from '@/features/landing/newsletter-section/NewsletterSection';
 import SubscribeSection from '@/features/landing/subscribe-section/SubscribeSection';
 

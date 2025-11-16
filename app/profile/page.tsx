@@ -57,7 +57,7 @@ export default function ProfilePage() {
                     </div>
 
                     <Tabs defaultValue='account' className='w-full'>
-                        <div className='border-b mb-8'>
+                        <div className='mb-8 mt-8'>
                             <TabsList className='h-auto p-0 bg-transparent w-full justify-start gap-1'>
                                 <TabsTrigger
                                     value='account'
@@ -66,13 +66,13 @@ export default function ProfilePage() {
                                     <User className='w-4 h-4' />
                                     <span className='hidden sm:inline font-medium'>Compte</span>
                                 </TabsTrigger>
-                                <TabsTrigger
-                                    value='subscription'
-                                    className='gap-2 rounded-none border-b-2 border-transparent data-[state=active]:border-[#00C2FF] data-[state=active]:bg-transparent data-[state=active]:shadow-none px-6 py-3'
-                                >
-                                    <CreditCard className='w-4 h-4' />
-                                    <span className='hidden sm:inline font-medium'>Abonnement</span>
-                                </TabsTrigger>
+                                {/*<TabsTrigger*/}
+                                {/*    value='subscription'*/}
+                                {/*    className='gap-2 rounded-none border-b-2 border-transparent data-[state=active]:border-[#00C2FF] data-[state=active]:bg-transparent data-[state=active]:shadow-none px-6 py-3'*/}
+                                {/*>*/}
+                                {/*    <CreditCard className='w-4 h-4' />*/}
+                                {/*    <span className='hidden sm:inline font-medium'>Abonnement</span>*/}
+                                {/*</TabsTrigger>*/}
                                 <TabsTrigger
                                     value='billing'
                                     className='gap-2 rounded-none border-b-2 border-transparent data-[state=active]:border-[#00C2FF] data-[state=active]:bg-transparent data-[state=active]:shadow-none px-6 py-3'
@@ -101,9 +101,9 @@ export default function ProfilePage() {
                             <Account />
                         </TabsContent>
 
-                        <TabsContent value='subscription' className='space-y-8'>
-                            <Subscription />
-                        </TabsContent>
+                        {/*<TabsContent value='subscription' className='space-y-8'>*/}
+                        {/*    <Subscription />*/}
+                        {/*</TabsContent>*/}
 
                         <TabsContent value='billing' className='space-y-8'>
                             <Card className='overflow-hidden'>
